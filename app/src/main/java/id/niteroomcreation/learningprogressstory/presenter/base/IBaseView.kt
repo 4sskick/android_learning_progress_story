@@ -19,6 +19,10 @@ open interface IBaseView {
 
     fun initUI()
 
+    fun destroyUI() {
+
+    }
+
     fun showLoading(title: String?, desc: String?)
 
     fun showLoading()

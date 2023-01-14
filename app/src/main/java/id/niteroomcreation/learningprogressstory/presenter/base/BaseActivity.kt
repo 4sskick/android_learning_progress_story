@@ -18,7 +18,7 @@ import id.niteroomcreation.learningprogressstory.presenter.custom.CLoadingDialog
 abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     companion object {
-        val TAG: String = BaseActivity.javaClass.simpleName
+        val TAG: String = BaseActivity::class.java.simpleName
         const val EMPTY_LAYOUT: Int = 0
     }
 
@@ -50,6 +50,10 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
                 throw RuntimeException("Inflating contentLayout() failed on ${this.javaClass.simpleName}")
             }
         }
+    }
+
+    fun getActContext(): Context {
+        return context
     }
 
     override fun showLoading(title: String?, desc: String?) {
