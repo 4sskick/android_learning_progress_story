@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.BActivityBinding
 import id.niteroomcreation.learningprogressstory.presenter.custom.CLoadingDialog
 
@@ -34,6 +35,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
         context = this
         progressLoading = CLoadingDialog.progressDialog(context)
+        toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
 
         onCreateInside()
         initUI()
@@ -48,7 +50,36 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
                 throw RuntimeException("Inflating contentLayout() failed on ${this.javaClass.simpleName}")
             }
         }
+    }
 
+    override fun showLoading(title: String?, desc: String?) {
+        progressLoading.setTitle(if (title == null) title else this.resources.getString(R.string.info_loading_title))
+        progressLoading.setCancelable(false)
+        progressLoading.setCanceledOnTouchOutside(false)
 
+        if (!progressLoading.isShowing) {
+            runOnUiThread { progressLoading.show() }
+        }
+    }
+
+    override fun showLoading() {
+        showLoading(null, null)
+    }
+
+    override fun dismissLoading() {
+        if (progressLoading.isShowing) {
+            runOnUiThread { progressLoading.dismiss() }
+        }
+    }
+
+    override fun showMessage(message: String?) {
+        toast.cancel()
+
+        if (!message.isNullOrEmpty())
+            toast = Toast.makeText(this, message, Toast.LENGTH_SHORT).also { it.show() }
+    }
+
+    override fun showMessage(resId: Int) {
+        showMessage(this.getString(resId))
     }
 }

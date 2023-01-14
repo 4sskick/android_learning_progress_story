@@ -8,14 +8,24 @@ import androidx.annotation.LayoutRes
  */
 open interface IBaseView {
 
-    fun onCreateInside(){
+    fun onCreateInside() {
 
     }
 
     @LayoutRes
-    fun contentLayout():Int{
+    fun contentLayout(): Int {
         return 0
     }
 
     fun initUI()
+
+    fun showLoading(title: String?, desc: String?)
+
+    fun showLoading()
+
+    fun dismissLoading()
+
+    fun showMessage(message: String?)
+
+    fun showMessage(resId: Int)
 }

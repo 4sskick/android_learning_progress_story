@@ -16,12 +16,13 @@ class CLoadingDialog {
     companion object {
         val TAG = CLoadingDialog.javaClass.simpleName
 
+        private lateinit var dialog: Dialog
+
         fun progressDialog(context: Context): Dialog {
-            val dialog = Dialog(context)
+            dialog = Dialog(context)
             val inflate = LayoutInflater.from(context).inflate(R.layout.c_loading, null)
 
             dialog.setContentView(inflate)
-            dialog.setCancelable(false)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             return dialog
