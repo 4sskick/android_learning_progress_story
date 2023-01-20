@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.presenter.feature.login
+package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.niteroomcreation.learningprogressstory.data.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.LoginRepository
-import id.niteroomcreation.learningprogressstory.presenter.feature.login.LoginViewModel
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginViewModel
 
 /**
  * Created by Septian Adi Wijaya on 14/01/2023.
@@ -20,11 +20,10 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
 
         @JvmStatic
+        @Synchronized
         fun getInstance(context: Context): ViewModelFactory {
             if (instance == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    instance = ViewModelFactory()
-                }
+                instance = ViewModelFactory()
             }
 
             return instance

@@ -41,7 +41,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IBaseView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return onInflateView(inflater, container, savedInstanceState)
     }
 
     override fun onDestroyView() {

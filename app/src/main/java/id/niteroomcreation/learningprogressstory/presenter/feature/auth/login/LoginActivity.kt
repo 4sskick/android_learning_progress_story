@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.presenter.feature.login
+package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 import android.app.Activity
 import androidx.lifecycle.Observer

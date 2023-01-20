@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.presenter.feature.login
+package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 /**
  * User details post authentication that is exposed to the UI

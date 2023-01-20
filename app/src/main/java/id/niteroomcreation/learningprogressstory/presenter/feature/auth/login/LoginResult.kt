@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.presenter.feature.login
+package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 /**
  * Authentication result : success (user details) or error message.

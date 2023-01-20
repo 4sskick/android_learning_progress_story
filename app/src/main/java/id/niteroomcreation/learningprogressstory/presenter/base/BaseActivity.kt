@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.BActivityBinding
 import id.niteroomcreation.learningprogressstory.presenter.custom.CLoadingDialog
+import id.niteroomcreation.learningprogressstory.util.LogHelper
 
 /**
  * Created by Septian Adi Wijaya on 14/01/2023.
@@ -37,6 +38,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         progressLoading = CLoadingDialog.progressDialog(context)
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
 
+        LogHelper.e(TAG, "dcfhgvjbknm")
+
         onCreateInside()
         initUI()
 
@@ -46,10 +49,12 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
                 var inflater = this.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 inflater.inflate(contentLayout(), binding.layoutContent)
 
+                LogHelper.e(TAG, "here inside contentlayout")
             } catch (e: Exception) {
                 throw RuntimeException("Inflating contentLayout() failed on ${this.javaClass.simpleName}")
             }
-        }
+        } else LogHelper.e(TAG, "here outside contentlayout")
+
     }
 
     fun getActContext(): Context {
