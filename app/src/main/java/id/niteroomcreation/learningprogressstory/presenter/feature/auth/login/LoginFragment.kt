@@ -1,31 +1,49 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
-import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import id.niteroomcreation.learningprogressstory.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import id.niteroomcreation.learningprogressstory.R
+import id.niteroomcreation.learningprogressstory.databinding.ActivityLoginBinding
+import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : BaseFragment<LoginViewModel>() {
+
+    companion object {
+        val TAG = LoginFragment::class.java.simpleName
+
+        fun newInstance(): LoginFragment {
+            return LoginFragment()
+        }
+    }
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onInflateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        return binding.root
+    }
+
+    override fun initUI() {
+        setupObserver()
+    }
+
+    override fun setupObserver() {
+        mViewModel = obtainViewModel(this, LoginViewModel::class.java)
 
         val username = binding.username
         val password = binding.password
@@ -35,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -49,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -59,10 +77,10 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
             }
-            setResult(Activity.RESULT_OK)
+//            setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+//            finish()
         })
 
         username.afterTextChanged {
@@ -103,14 +121,14 @@ class LoginActivity : AppCompatActivity() {
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
-            applicationContext,
+            context,
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 

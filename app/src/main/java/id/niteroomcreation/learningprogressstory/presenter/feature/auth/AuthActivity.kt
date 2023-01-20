@@ -38,8 +38,12 @@ class AuthActivity : BaseActivity() {
         NavUtil.moveToFragment(
             fragmentManager,
             binding.flAuth.id,
+
             RegisterFragment.newInstance(),
             RegisterFragment.TAG,
+//            LoginActivity.newInstance(),
+//            LoginActivity.TAG,
+
             false
         )
     }

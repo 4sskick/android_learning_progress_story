@@ -3,7 +3,6 @@ package id.niteroomcreation.learningprogressstory.presenter.base
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,8 +27,9 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     private lateinit var context: Context
     private lateinit var binding: BActivityBinding
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         binding = BActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

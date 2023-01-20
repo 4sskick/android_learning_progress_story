@@ -8,8 +8,9 @@ import id.niteroomcreation.learningprogressstory.data.LoginRepository
 import id.niteroomcreation.learningprogressstory.data.Result
 
 import id.niteroomcreation.learningprogressstory.R
+import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository) : BaseViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm

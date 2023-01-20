@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.niteroomcreation.learningprogressstory.data.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.LoginRepository
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginViewModel
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterViewModel
 
 /**
  * Created by Septian Adi Wijaya on 14/01/2023.
@@ -16,7 +17,7 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     companion object {
 
         @Volatile
-        private lateinit var instance: ViewModelFactory
+        private var instance: ViewModelFactory? = null
 
 
         @JvmStatic
@@ -26,7 +27,7 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 instance = ViewModelFactory()
             }
 
-            return instance
+            return instance!!
         }
     }
 
@@ -38,6 +39,9 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                     dataSource = LoginDataSource()
                 )
             ) as T
+
+        else if(modelClass.isAssignableFrom(RegisterViewModel::class.java))
+            return RegisterViewModel() as T
 
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")
     }
