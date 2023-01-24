@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2AFFFFFF"
-    android:padding="13dp">
+    android:background="#00FFFFFF"
+    android:padding="18dp">
 
     <ProgressBar
         android:id="@+id/c_loading"
@@ -18,5 +18,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="7dp"
         android:layout_toEndOf="@+id/c_loading"
-        android:text="@string/info_loading_title" />
+        android:text="@string/info_loading_title"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 </RelativeLayout>

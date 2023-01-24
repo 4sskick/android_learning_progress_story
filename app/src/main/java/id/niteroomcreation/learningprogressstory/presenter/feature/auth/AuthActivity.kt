@@ -6,14 +6,15 @@ import id.niteroomcreation.learningprogressstory.databinding.AAuthBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterFragment
-import id.niteroomcreation.learningprogressstory.util.LogHelper
 import id.niteroomcreation.learningprogressstory.util.NavUtil
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
  * please be sure to add credential if you use people's code
  */
-class AuthActivity : BaseActivity() {
+class AuthActivity : BaseActivity(),
+    LoginFragment.LoginInterface,
+    RegisterFragment.RegisterInterface {
 
     companion object {
         val TAG = AuthActivity::class.java.simpleName
@@ -47,5 +48,38 @@ class AuthActivity : BaseActivity() {
         )
     }
 
+    override fun onGotoRegister() {
 
+        NavUtil.moveToFragment(
+            fragmentManager,
+            binding.flAuth.id,
+            RegisterFragment.newInstance(),
+            RegisterFragment.TAG,
+            false
+        )
+    }
+
+    override fun onGotoLogin() {
+
+        NavUtil.moveToFragment(
+            fragmentManager,
+            binding.flAuth.id,
+            LoginFragment.newInstance(),
+            LoginFragment.TAG,
+            false
+        )
+    }
+
+    override fun onRegisterOperation() {
+        NavUtil.gotoMain(this)
+    }
+
+    override fun onLoginOperation() {
+        NavUtil.gotoMain(this)
+    }
+}
+
+interface AuthInterface {
+    fun onGotoRegister()
+    fun onGotoLogin()
 }

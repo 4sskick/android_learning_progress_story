@@ -5,12 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActivity
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
  * please be sure to add credential if you use people's code
  */
 object NavUtil {
+
+    fun gotoMain(act: Activity) {
+        intentGoto(act, MainActivity::class.java, false)
+    }
 
     fun moveToFragment(
         fragmentManager: FragmentManager,

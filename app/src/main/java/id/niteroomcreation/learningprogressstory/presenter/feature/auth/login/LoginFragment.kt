@@ -1,20 +1,17 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FLoginBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
 
@@ -27,6 +24,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     }
 
     private lateinit var binding: FLoginBinding
+    private lateinit var listener: LoginInterface
 
     override fun onInflateView(
         inflater: LayoutInflater,
@@ -39,6 +37,18 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun initUI() {
         setupObserver()
+
+        binding.loginButton.setOnClickListener(object : OnClickListener {
+            override fun onClick(v: View?) {
+                listener.onLoginOperation()
+            }
+        })
+
+        binding.registerButton.setOnClickListener(object : OnClickListener {
+            override fun onClick(v: View?) {
+                listener.onGotoRegister()
+            }
+        })
     }
 
     override fun setupObserver() {
@@ -129,19 +139,32 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 //    private fun showLoginFailed(@StringRes errorString: Int) {
 //        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
 //    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is LoginInterface)
+            listener = context as LoginInterface
+        else
+            throw RuntimeException("${context.toString()} need to implement LoginInterface")
+    }
+
+    interface LoginInterface : AuthInterface {
+        fun onLoginOperation()
+    }
 }
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
  */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
-}
+//fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+//    this.addTextChangedListener(object : TextWatcher {
+//        override fun afterTextChanged(editable: Editable?) {
+//            afterTextChanged.invoke(editable.toString())
+//        }
+//
+//        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+//
+//        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+//    })
+//}
