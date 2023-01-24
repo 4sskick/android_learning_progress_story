@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.AAuthBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseActivity
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterFragment
 import id.niteroomcreation.learningprogressstory.util.LogHelper
 import id.niteroomcreation.learningprogressstory.util.NavUtil
@@ -31,18 +32,16 @@ class AuthActivity : BaseActivity() {
     }
 
     override fun initUI() {
-        LogHelper.e(TAG, "inside auth act")
-
         fragmentManager = supportFragmentManager
 
         NavUtil.moveToFragment(
             fragmentManager,
             binding.flAuth.id,
 
-            RegisterFragment.newInstance(),
-            RegisterFragment.TAG,
-//            LoginActivity.newInstance(),
-//            LoginActivity.TAG,
+//            RegisterFragment.newInstance(),
+//            RegisterFragment.TAG,
+            LoginFragment.newInstance(),
+            LoginFragment.TAG,
 
             false
         )

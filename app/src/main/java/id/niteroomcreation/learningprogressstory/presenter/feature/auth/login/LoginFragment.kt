@@ -13,7 +13,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.niteroomcreation.learningprogressstory.R
-import id.niteroomcreation.learningprogressstory.databinding.ActivityLoginBinding
+import id.niteroomcreation.learningprogressstory.databinding.FLoginBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
@@ -26,15 +26,14 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         }
     }
 
-    private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: FLoginBinding
 
     override fun onInflateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = FLoginBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -45,91 +44,91 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, LoginViewModel::class.java)
 
-        val username = binding.username
-        val password = binding.password
-        val login = binding.login
-        val loading = binding.loading
-
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
-        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-//            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-//            finish()
-        })
-
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
-        }
-
-        password.apply {
-            afterTextChanged {
-                loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
-                )
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
-                }
-                false
-            }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-            }
-        }
+//        val username = binding.username
+//        val password = binding.password
+//        val login = binding.login
+//        val loading = binding.loading
+//
+//        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+//            .get(LoginViewModel::class.java)
+//
+//        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
+//            val loginState = it ?: return@Observer
+//
+//            // disable login button unless both username / password is valid
+//            login.isEnabled = loginState.isDataValid
+//
+//            if (loginState.usernameError != null) {
+//                username.error = getString(loginState.usernameError)
+//            }
+//            if (loginState.passwordError != null) {
+//                password.error = getString(loginState.passwordError)
+//            }
+//        })
+//
+//        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
+//            val loginResult = it ?: return@Observer
+//
+//            loading.visibility = View.GONE
+//            if (loginResult.error != null) {
+//                showLoginFailed(loginResult.error)
+//            }
+//            if (loginResult.success != null) {
+//                updateUiWithUser(loginResult.success)
+//            }
+////            setResult(Activity.RESULT_OK)
+//
+//            //Complete and destroy login activity once successful
+////            finish()
+//        })
+//
+//        username.afterTextChanged {
+//            loginViewModel.loginDataChanged(
+//                username.text.toString(),
+//                password.text.toString()
+//            )
+//        }
+//
+//        password.apply {
+//            afterTextChanged {
+//                loginViewModel.loginDataChanged(
+//                    username.text.toString(),
+//                    password.text.toString()
+//                )
+//            }
+//
+//            setOnEditorActionListener { _, actionId, _ ->
+//                when (actionId) {
+//                    EditorInfo.IME_ACTION_DONE ->
+//                        loginViewModel.login(
+//                            username.text.toString(),
+//                            password.text.toString()
+//                        )
+//                }
+//                false
+//            }
+//
+//            login.setOnClickListener {
+//                loading.visibility = View.VISIBLE
+//                loginViewModel.login(username.text.toString(), password.text.toString())
+//            }
+//        }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            context,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
-    }
+//    private fun updateUiWithUser(model: LoggedInUserView) {
+//        val welcome = getString(R.string.welcome)
+//        val displayName = model.displayName
+//        // TODO : initiate successful logged in experience
+//        Toast.makeText(
+//            context,
+//            "$welcome $displayName",
+//            Toast.LENGTH_LONG
+//        ).show()
+//    }
+//
+//    private fun showLoginFailed(@StringRes errorString: Int) {
+//        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
+//    }
 }
 
 /**

@@ -14,6 +14,7 @@
     <string name="info_loading_desc">Sedang berjalan, mohon tunggu</string>
     <string name="info_is_running">Sedang berjalan, mohon tunggu</string>
 
+    <string name="lbl_login">Masuk</string>
     <string name="lbl_email">Email</string>
     <string name="lbl_email_hint">Masukkan Email Anda</string>
     <string name="lbl_username">Nama Pengguna</string>
