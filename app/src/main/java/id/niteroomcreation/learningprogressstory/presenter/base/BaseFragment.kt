@@ -40,9 +40,8 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IBaseView {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return onInflateView(inflater, container, savedInstanceState)
-    }
+    ): View? = onInflateView(inflater, container, savedInstanceState)
+        ?: throw RuntimeException("${this::class.java.simpleName} not implement onInflateView()")
 
     override fun onDestroyView() {
         super.onDestroyView()
