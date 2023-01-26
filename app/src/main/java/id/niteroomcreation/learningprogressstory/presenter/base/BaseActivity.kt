@@ -47,6 +47,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
                 inflater.inflate(contentLayout(), binding.layoutContent)
 
             } catch (e: Exception) {
+                e.printStackTrace()
                 throw RuntimeException("Inflating contentLayout() failed on ${this.javaClass.simpleName}")
             }
         }

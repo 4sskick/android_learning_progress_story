@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph">
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/nav_stories">
 
     <fragment
-        android:id="@+id/main_nav_stories"
+        android:id="@+id/nav_stories"
         android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesFragment"
         android:label="stories"
+        tools:layout="@layout/f_stories" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesFragment"
+        android:label="profile"
         tools:layout="@layout/f_stories" />
 </navigation>
