@@ -1,6 +1,8 @@
-package id.niteroomcreation.learningprogressstory.data
+package id.niteroomcreation.learningprogressstory.data.repository
 
-import id.niteroomcreation.learningprogressstory.data.model.LoggedInUser
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoggedInUser
+import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
 
 /**
  * Class that requests authentication and user information from the remote data source and

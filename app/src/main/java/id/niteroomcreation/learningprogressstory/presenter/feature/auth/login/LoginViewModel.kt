@@ -2,10 +2,9 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import id.niteroomcreation.learningprogressstory.data.LoginRepository
-import id.niteroomcreation.learningprogressstory.data.Result
+import id.niteroomcreation.learningprogressstory.data.repository.LoginRepository
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
 
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel

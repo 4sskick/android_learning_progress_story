@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.data
+package id.niteroomcreation.learningprogressstory.domain.model.auth.login
 
 /**
  * A generic class that holds a value with its loading status.

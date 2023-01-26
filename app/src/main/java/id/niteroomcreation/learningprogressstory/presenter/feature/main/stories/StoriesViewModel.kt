@@ -6,5 +6,9 @@ import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
  * Created by Septian Adi Wijaya on 24/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesViewModel:BaseViewModel() {
+class StoriesViewModel : BaseViewModel() {
+
+    companion object {
+        val TAG = StoriesViewModel::class.java.simpleName
+    }
 }

@@ -1,4 +1,4 @@
-package id.niteroomcreation.learningprogressstory.data.model
+package id.niteroomcreation.learningprogressstory.domain.model.auth.login
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
