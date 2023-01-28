@@ -2,13 +2,11 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.EditText
+import androidx.lifecycle.Observer
 import id.niteroomcreation.learningprogressstory.databinding.FLoginBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
@@ -40,7 +38,13 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
         binding.loginButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-                listener.onLoginOperation()
+//                listener.onLoginOperation()
+
+
+                mViewModel.login(
+                    binding.loginEmailInputEdit.text.toString(),
+                    binding.loginPasswInputEdit.text.toString()
+                )
             }
         })
 
@@ -76,21 +80,24 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 //            }
 //        })
 //
-//        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
-//            val loginResult = it ?: return@Observer
-//
+        mViewModel.loginResult.observe(this@LoginFragment, Observer {
+            val loginResult = it ?: return@Observer
+
+            dismissLoading()
 //            loading.visibility = View.GONE
-//            if (loginResult.error != null) {
+            if (loginResult.error != null) {
 //                showLoginFailed(loginResult.error)
-//            }
-//            if (loginResult.success != null) {
+                showMessage(loginResult.error)
+            }
+            if (loginResult.success != null) {
 //                updateUiWithUser(loginResult.success)
-//            }
-////            setResult(Activity.RESULT_OK)
-//
-//            //Complete and destroy login activity once successful
-////            finish()
-//        })
+                showMessage("${loginResult.success.displayName} welcome")
+            }
+//            setResult(Activity.RESULT_OK)
+
+            //Complete and destroy login activity once successful
+//            finish()
+        })
 //
 //        username.afterTextChanged {
 //            loginViewModel.loginDataChanged(

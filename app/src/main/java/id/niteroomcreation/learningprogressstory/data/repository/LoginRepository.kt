@@ -9,7 +9,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository(val dataSource: LoginDataSource) :LoginRepositoryImpl{
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -29,7 +29,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    override suspend fun doLogin(username: String, password: String): Result<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password)
 
