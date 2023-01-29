@@ -40,6 +40,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             override fun onClick(v: View?) {
 //                listener.onLoginOperation()
 
+                showLoading()
 
                 mViewModel.login(
                     binding.loginEmailInputEdit.text.toString(),

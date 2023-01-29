@@ -38,7 +38,7 @@ class LoginViewModel(
 
 
             if (result is Result.Success)
-                _loginResult.postValue(LoginResult(success = LoggedInUserView(displayName = result.data.displayName)))
+                _loginResult.postValue(LoginResult(success = LoggedInUserView(displayName = result.data.loginResult.name)))
             else
                 _loginResult.postValue(LoginResult(error = R.string.login_failed))
 

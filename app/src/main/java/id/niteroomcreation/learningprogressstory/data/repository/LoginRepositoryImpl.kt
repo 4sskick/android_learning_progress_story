@@ -1,6 +1,7 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
 import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoggedInUser
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginResponse
 import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
 
 /**
@@ -9,6 +10,6 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
  */
 interface LoginRepositoryImpl {
 
-    suspend fun doLogin(username: String, password: String): Result<LoggedInUser>
+    suspend fun doLogin(username: String, password: String): Result<LoginResponse>
 
 }

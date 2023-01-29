@@ -1,7 +1,8 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
-import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoggedInUser
 import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoggedInUser
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginResponse
 import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
 
 /**
@@ -9,7 +10,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) :LoginRepositoryImpl{
+class LoginRepository(val dataSource: LoginDataSource) : LoginRepositoryImpl {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -29,15 +30,14 @@ class LoginRepository(val dataSource: LoginDataSource) :LoginRepositoryImpl{
         dataSource.logout()
     }
 
-    override suspend fun doLogin(username: String, password: String): Result<LoggedInUser> {
+    override suspend fun doLogin(username: String, password: String): Result<LoginResponse> {
         // handle login
-        val result = dataSource.login(username, password)
+//        val result = dataSource.login(username, password)
+//        if (result is Result.Success) {
+//            setLoggedInUser(result.data.loginResult.name)
+//        }
 
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }
-
-        return result
+        return dataSource.doLogin(username, password)
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
