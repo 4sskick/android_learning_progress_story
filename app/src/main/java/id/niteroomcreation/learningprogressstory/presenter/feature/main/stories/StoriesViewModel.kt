@@ -2,14 +2,20 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import id.niteroomcreation.learningprogressstory.data.repository.LoginRepositoryImpl
+import id.niteroomcreation.learningprogressstory.data.repository.StoriesRepositoryImpl
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
+import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
 
 /**
  * Created by Septian Adi Wijaya on 24/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesViewModel : BaseViewModel() {
+class StoriesViewModel(
+    private val storiesRepository: StoriesRepositoryImpl,
+    private val dispatcher: Dispatcher
+) : BaseViewModel() {
 
     companion object {
         val TAG = StoriesViewModel::class.java.simpleName

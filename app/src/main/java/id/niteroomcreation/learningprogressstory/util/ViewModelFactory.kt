@@ -3,8 +3,6 @@ package id.niteroomcreation.learningprogressstory.util
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
-import id.niteroomcreation.learningprogressstory.data.repository.LoginRepository
 import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginViewModel
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterViewModel
@@ -41,9 +39,15 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(RegisterViewModel::class.java))
-            return RegisterViewModel() as T
+            return RegisterViewModel(
+                registerRepository = Injection.provideRegisterRepository(),
+                dispatcher = Injection.provideDispatcher()
+            ) as T
         else if (modelClass.isAssignableFrom(StoriesViewModel::class.java))
-            return StoriesViewModel() as T
+            return StoriesViewModel(
+                storiesRepository = Injection.provideStoriesRepository(),
+                dispatcher = Injection.provideDispatcher()
+            ) as T
 
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")
     }

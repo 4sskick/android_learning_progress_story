@@ -1,8 +1,7 @@
 package id.niteroomcreation.learningprogressstory.domain.di
 
 import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
-import id.niteroomcreation.learningprogressstory.data.repository.LoginRepository
-import id.niteroomcreation.learningprogressstory.data.repository.LoginRepositoryImpl
+import id.niteroomcreation.learningprogressstory.data.repository.*
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -26,4 +25,8 @@ object Injection {
 
     fun provideLoginRepository(): LoginRepositoryImpl =
         LoginRepository(dataSource = LoginDataSource())
+
+    fun provideRegisterRepository(): RegisterRepositoryImpl = RegisterRepository()
+
+    fun provideStoriesRepository(): StoriesRepositoryImpl = StoriesRepository()
 }
