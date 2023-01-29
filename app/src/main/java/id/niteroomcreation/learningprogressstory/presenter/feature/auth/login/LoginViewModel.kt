@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.data.repository.LoginRepositoryImpl
-import id.niteroomcreation.learningprogressstory.domain.model.auth.login.Result
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -22,22 +22,13 @@ class LoginViewModel(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(email: String, password: String) {
 
         viewModelScope.launch(dispatcher.io) {
 
-            // can be launched in a separate asynchronous job
-            val result = loginRepository.doLogin(username, password)
+            val result = loginRepository.login(email, password)
 
-//            if (result is Result.Success) {
-//                _loginResult.value =
-//                    LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-//            } else {
-//                _loginResult.value = LoginResult(error = R.string.login_failed)
-//            }
-
-
-            if (result is Result.Success)
+            if (result is Resource.Success)
                 _loginResult.postValue(LoginResult(success = LoggedInUserView(displayName = result.data.loginResult.name)))
             else
                 _loginResult.postValue(LoginResult(error = R.string.login_failed))

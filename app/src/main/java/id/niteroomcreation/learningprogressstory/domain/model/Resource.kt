@@ -1,14 +1,14 @@
-package id.niteroomcreation.learningprogressstory.domain.model.auth.login
+package id.niteroomcreation.learningprogressstory.domain.model
 
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
  */
-sealed class Result<out T : Any> {
+sealed class Resource<out T : Any> {
 
-    data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+    data class Success<out T : Any>(val data: T) : Resource<T>()
+    data class Error(val exception: Exception) : Resource<Nothing>()
+    object Loading : Resource<Nothing>()
 
     override fun toString(): String {
         return when (this) {

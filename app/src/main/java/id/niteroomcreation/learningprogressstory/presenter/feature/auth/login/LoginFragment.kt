@@ -38,10 +38,8 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
         binding.loginButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-//                listener.onLoginOperation()
 
                 showLoading()
-
                 mViewModel.login(
                     binding.loginEmailInputEdit.text.toString(),
                     binding.loginPasswInputEdit.text.toString()
@@ -58,46 +56,20 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, LoginViewModel::class.java)
-
-//        val username = binding.username
-//        val password = binding.password
-//        val login = binding.login
-//        val loading = binding.loading
-//
-//        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-//            .get(LoginViewModel::class.java)
-//
-//        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
-//            val loginState = it ?: return@Observer
-//
-//            // disable login button unless both username / password is valid
-//            login.isEnabled = loginState.isDataValid
-//
-//            if (loginState.usernameError != null) {
-//                username.error = getString(loginState.usernameError)
-//            }
-//            if (loginState.passwordError != null) {
-//                password.error = getString(loginState.passwordError)
-//            }
-//        })
-//
         mViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
             dismissLoading()
-//            loading.visibility = View.GONE
             if (loginResult.error != null) {
+
 //                showLoginFailed(loginResult.error)
                 showMessage(loginResult.error)
             }
             if (loginResult.success != null) {
-//                updateUiWithUser(loginResult.success)
-                showMessage("${loginResult.success.displayName} welcome")
-            }
-//            setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
-//            finish()
+                showMessage("${loginResult.success.displayName} welcome")
+                listener.onLoginOperation()
+            }
         })
 //
 //        username.afterTextChanged {
