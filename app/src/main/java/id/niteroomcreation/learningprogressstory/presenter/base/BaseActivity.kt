@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.BActivityBinding
+import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.presenter.custom.CLoadingDialog
+import id.niteroomcreation.learningprogressstory.util.PrefUtil
 
 /**
  * Created by Septian Adi Wijaya on 14/01/2023.
@@ -26,6 +28,9 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     private lateinit var context: Context
     private lateinit var binding: BActivityBinding
 
+    lateinit var prefUser: PrefUtil
+    lateinit var prefApp: PrefUtil
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         progressLoading = CLoadingDialog.progressDialog(context)
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
 
+        initPref()
         onCreateInside()
         initUI()
 
@@ -52,6 +58,11 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
             }
         }
 
+    }
+
+    private fun initPref() {
+        prefUser = Injection.providePrefUser()
+        prefApp = Injection.providePrefApp()
     }
 
     fun getActContext(): Context {

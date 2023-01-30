@@ -39,4 +39,8 @@ class MainActivity : BaseActivity() {
     override fun initUI() {
         fragmentManager = supportFragmentManager
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }

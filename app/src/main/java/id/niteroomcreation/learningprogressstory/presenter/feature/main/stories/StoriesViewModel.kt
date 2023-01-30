@@ -2,8 +2,8 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import id.niteroomcreation.learningprogressstory.data.repository.LoginRepositoryImpl
 import id.niteroomcreation.learningprogressstory.data.repository.StoriesRepositoryImpl
+import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel

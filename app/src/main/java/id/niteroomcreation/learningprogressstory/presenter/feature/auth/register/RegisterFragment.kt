@@ -12,6 +12,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
 import id.niteroomcreation.learningprogressstory.util.LogHelper
+import id.niteroomcreation.learningprogressstory.util.PrefKey
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
@@ -70,11 +71,13 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
             when (it) {
                 is Resource.Error -> {
                     dismissLoading()
+                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, false)
                     showMessage(it.message)
                 }
                 is Resource.Loading -> showLoading()
                 is Resource.Success -> {
                     dismissLoading()
+                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, true)
                     listener.onRegisterOperation()
 
                 }

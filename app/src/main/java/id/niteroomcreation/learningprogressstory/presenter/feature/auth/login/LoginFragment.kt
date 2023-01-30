@@ -8,8 +8,12 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import id.niteroomcreation.learningprogressstory.databinding.FLoginBinding
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterFragment
+import id.niteroomcreation.learningprogressstory.util.LogHelper
+import id.niteroomcreation.learningprogressstory.util.PrefKey
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
 
@@ -57,18 +61,29 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, LoginViewModel::class.java)
         mViewModel.loginResult.observe(this@LoginFragment, Observer {
-            val loginResult = it ?: return@Observer
 
-            dismissLoading()
-            if (loginResult.error != null) {
+            LogHelper.j(RegisterFragment.TAG, it)
 
-//                showLoginFailed(loginResult.error)
-                showMessage(loginResult.error)
-            }
-            if (loginResult.success != null) {
+            when (it) {
+                is Resource.Error -> {
+                    dismissLoading()
 
-                showMessage("${loginResult.success.displayName} welcome")
-                listener.onLoginOperation()
+                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, false)
+
+                    showMessage(it.message)
+                }
+                is Resource.Loading -> showLoading()
+                is Resource.Success -> {
+                    dismissLoading()
+
+                    prefUser.setString(PrefKey.LOGIN_TOKEN, it.data.loginResult.token)
+                    prefUser.setString(PrefKey.LOGIN_USERID, it.data.loginResult.userId)
+                    prefUser.setString(PrefKey.LOGIN_NAME, it.data.loginResult.name)
+                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, true)
+
+                    listener.onLoginOperation()
+
+                }
             }
         })
 //

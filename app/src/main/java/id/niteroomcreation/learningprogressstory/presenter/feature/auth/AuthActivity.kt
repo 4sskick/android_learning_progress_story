@@ -7,6 +7,7 @@ import id.niteroomcreation.learningprogressstory.presenter.base.BaseActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterFragment
 import id.niteroomcreation.learningprogressstory.util.NavUtil
+import id.niteroomcreation.learningprogressstory.util.PrefKey
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
@@ -35,17 +36,17 @@ class AuthActivity : BaseActivity(),
     override fun initUI() {
         fragmentManager = supportFragmentManager
 
-        NavUtil.moveToFragment(
-            fragmentManager,
-            binding.flAuth.id,
+        if (prefApp.getBoolean(PrefKey.LOGIN_FLAG))
+            NavUtil.gotoMain(this)
+        else
+            NavUtil.moveToFragment(
+                fragmentManager,
+                binding.flAuth.id,
+                LoginFragment.newInstance(),
+                LoginFragment.TAG,
 
-//            RegisterFragment.newInstance(),
-//            RegisterFragment.TAG,
-            LoginFragment.newInstance(),
-            LoginFragment.TAG,
-
-            false
-        )
+                false
+            )
     }
 
     override fun onGotoRegister() {

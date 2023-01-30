@@ -10,12 +10,15 @@
     <string name="invalid_password">Password must be >5 characters</string>
 
     <string name="login_failed">"Masuk gagal"</string>
+
     <string name="register_failed">"Daftar gagal"</string>
     <string name="register_failed_password">"Kata sandi tidak sama"</string>
 
     <string name="info_loading_title">Memuat</string>
     <string name="info_loading_desc">Sedang berjalan, mohon tunggu</string>
     <string name="info_is_running">Sedang berjalan, mohon tunggu</string>
+    <string name="info_failed_username">"Username tidak valid"</string>
+    <string name="info_failed_password">"Password tidak valid"</string>
 
     <string name="lbl_login">Masuk</string>
     <string name="lbl_email">Email</string>
@@ -28,4 +31,5 @@
     <string name="lbl_confirm_passw_hint">KonfirmasI Sandi</string>
     <string name="lbl_register">Daftar</string>
     <string name="lbl_back">Kembali</string>
+
 </resources>

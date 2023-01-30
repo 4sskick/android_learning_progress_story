@@ -1,9 +1,10 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
+import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
-import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoggedInUser
-import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginResponse
+import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginResponse
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -12,25 +13,19 @@ import id.niteroomcreation.learningprogressstory.domain.model.Resource
 
 class LoginRepository(val dataSource: LoginDataSource) : LoginRepositoryImpl {
 
-    // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
-
-    val isLoggedIn: Boolean
-        get() = user != null
-
-    init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-        user = null
-    }
-
-    fun logout() {
-        user = null
-        dataSource.logout()
-    }
-
     override suspend fun login(username: String, password: String): Resource<LoginResponse> {
+        if (username.isNullOrEmpty())
+            return Resource.Error(
+                Injection.provideAppContext().resources.getString(R.string.info_failed_username),
+                null
+            )
+        if (password.isNullOrEmpty())
+
+            return Resource.Error(
+                Injection.provideAppContext().resources.getString(R.string.info_failed_password),
+                null
+            )
+
         return dataSource.login(username, password)
     }
 }

@@ -19,12 +19,15 @@ class LoginDataSource : LoginRepositoryImpl {
         val result = response.body()
 
         if (response.isSuccessful && result != null)
-            Resource.Success(result)
+            if (result.error)
+                Resource.Error(result.message, null)
+            else
+                Resource.Success(result)
         else
-            Resource.Error(response.errorBody().toString(), IOException(response.message()))
+            Resource.Error(response.errorBody()!!.string(), IOException(response.message()))
 
     } catch (e: Exception) {
-        Resource.Error("Error logged in", IOException(e))
+        Resource.Error("An error happen", IOException(e))
     }
 
     fun logout() {

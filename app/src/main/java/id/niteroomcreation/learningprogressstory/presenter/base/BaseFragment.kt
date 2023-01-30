@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import id.niteroomcreation.learningprogressstory.util.PrefUtil
 import id.niteroomcreation.learningprogressstory.util.ViewModelFactory
 
 /**
@@ -56,6 +57,14 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IBaseView {
         else
             throw RuntimeException("attaching attach() failed on ${context::class.java.simpleName}")
     }
+
+    val prefUser: PrefUtil
+        get() = activity.prefUser
+
+
+    val prefApp: PrefUtil
+        get() = activity.prefApp
+
 
     override fun showLoading(title: String?, desc: String?) {
         activity.showLoading(title, desc)

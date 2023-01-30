@@ -6,6 +6,8 @@ import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.datasource.RegisterDataSource
 import id.niteroomcreation.learningprogressstory.data.repository.*
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
+import id.niteroomcreation.learningprogressstory.util.Constants
+import id.niteroomcreation.learningprogressstory.util.PrefUtil
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -26,7 +28,11 @@ object Injection {
             get() = Dispatchers.Unconfined
     }
 
-    fun provideAppContext():Context =LearningApp.getContext()
+    fun providePrefUser(): PrefUtil = PrefUtil(provideAppContext(), Constants.PREF_USER)
+
+    fun providePrefApp(): PrefUtil = PrefUtil(provideAppContext(), Constants.PREF_APP)
+
+    fun provideAppContext(): Context = LearningApp.getContext()
 
     fun provideLoginRepository(): LoginRepositoryImpl =
         LoginRepository(dataSource = LoginDataSource())
