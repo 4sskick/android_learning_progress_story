@@ -50,9 +50,6 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
 
         binding.registerButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-//                listener.onRegisterOperation()
-
-                showLoading()
                 mViewModel.register(
                     binding.registerUserInputEdit.text.toString(),
                     binding.registerEmailInputEdit.text.toString(),
@@ -78,7 +75,8 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
                 is Resource.Loading -> showLoading()
                 is Resource.Success -> {
                     dismissLoading()
-                    showMessage(it.data.message)
+                    listener.onRegisterOperation()
+
                 }
             }
 
