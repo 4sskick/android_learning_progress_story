@@ -1,10 +1,18 @@
 package id.niteroomcreation.learningprogressstory.domain.service
 
 import id.niteroomcreation.learningprogressstory.BuildConfig
+import id.niteroomcreation.learningprogressstory.domain.di.Injection
+import id.niteroomcreation.learningprogressstory.util.LogHelper
+import id.niteroomcreation.learningprogressstory.util.PrefKey
+import id.niteroomcreation.learningprogressstory.util.PrefUtil
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Septian Adi Wijaya on 29/01/2023.
@@ -20,7 +28,11 @@ class APIConfig {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
 
             val client = OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(Injection.provideNetworkInterceptor())
                 .build()
 
             val retrofit = Retrofit.Builder()
@@ -32,4 +44,30 @@ class APIConfig {
             return retrofit.create(APIService::class.java)
         }
     }
+}
+
+class NetworkInterceptor(val prefUser: PrefUtil) : Interceptor {
+
+    companion object {
+        val TAG = NetworkInterceptor::class.java.simpleName
+    }
+
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request: Request = chain.request()
+
+        val userId = prefUser.getString(PrefKey.LOGIN_USERID, "")
+        val token = prefUser.getString(PrefKey.LOGIN_TOKEN, "")
+
+        LogHelper.j(TAG, userId)
+
+        var requestBuilder: Request.Builder =
+            request.newBuilder().method(request.method, request.body)
+
+        if (userId!!.isNotEmpty())
+            requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
+
+        return chain.proceed(requestBuilder.build())
+
+    }
+
 }

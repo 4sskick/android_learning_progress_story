@@ -2,11 +2,15 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import id.niteroomcreation.learningprogressstory.data.repository.StoriesRepositoryImpl
 import id.niteroomcreation.learningprogressstory.domain.di.Injection
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 /**
  * Created by Septian Adi Wijaya on 24/01/2023.
@@ -24,8 +28,18 @@ class StoriesViewModel(
     private val data_ = MutableLiveData<List<Story>>()
     val data: LiveData<List<Story>> = data_
 
+    private val storiesResult_ = MutableLiveData<Resource<StoriesResponse>>()
+    val storiesResult = storiesResult_
+
     init {
         data()
+    }
+
+    fun getStories(){
+        storiesResult_.value = Resource.Loading
+        viewModelScope.launch(dispatcher.io) {
+            val result =
+        }
     }
 
     fun data() {

@@ -6,6 +6,7 @@ import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.datasource.RegisterDataSource
 import id.niteroomcreation.learningprogressstory.data.repository.*
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
+import id.niteroomcreation.learningprogressstory.domain.service.NetworkInterceptor
 import id.niteroomcreation.learningprogressstory.util.Constants
 import id.niteroomcreation.learningprogressstory.util.PrefUtil
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,6 +28,9 @@ object Injection {
         override val unconfined: CoroutineDispatcher
             get() = Dispatchers.Unconfined
     }
+
+    fun provideNetworkInterceptor(): NetworkInterceptor =
+        NetworkInterceptor(prefUser = providePrefUser())
 
     fun providePrefUser(): PrefUtil = PrefUtil(provideAppContext(), Constants.PREF_USER)
 
