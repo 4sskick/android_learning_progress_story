@@ -4,6 +4,7 @@ import android.content.Context
 import id.niteroomcreation.learningprogressstory.LearningApp
 import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.datasource.RegisterDataSource
+import id.niteroomcreation.learningprogressstory.data.datasource.StoriesDataSource
 import id.niteroomcreation.learningprogressstory.data.repository.*
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.domain.service.NetworkInterceptor
@@ -44,5 +45,6 @@ object Injection {
     fun provideRegisterRepository(): RegisterRepositoryImpl =
         RegisterRepository(dataSource = RegisterDataSource())
 
-    fun provideStoriesRepository(): StoriesRepositoryImpl = StoriesRepository()
+    fun provideStoriesRepository(): StoriesRepositoryImpl =
+        StoriesRepository(dataSource = StoriesDataSource())
 }

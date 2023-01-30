@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.util.LogHelper
 
@@ -35,6 +37,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
     override fun initUI() {
         setupObserver()
         setupAdapter();
+
     }
 
     private fun setupAdapter() {
@@ -48,10 +51,22 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, StoriesViewModel::class.java)
 
-        mViewModel.data.observe(this) {
-
+        mViewModel.storiesResult.observe(this, Observer {
             LogHelper.j(TAG, it)
-            adapter.update(it)
-        }
+
+            when (it) {
+                is Resource.Loading -> showLoading()
+                is Resource.Error -> {
+                    dismissLoading()
+                    showMessage(it.message)
+                }
+                is Resource.Success -> {
+                    dismissLoading()
+                    adapter.update(it.data.listStory)
+                }
+            }
+
+        })
+
     }
 }

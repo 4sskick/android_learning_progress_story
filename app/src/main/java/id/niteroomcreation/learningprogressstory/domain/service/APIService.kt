@@ -32,10 +32,10 @@ interface APIService {
     @GET("stories")
     @Headers("Content-Type:application/json; charset=UTF-8")
     suspend fun getStories(
-        @Header("Authorization") token: String,
-        @Query("page") page: Int,
-        @Query("size") size: Int,
-        @Query("location") location: Int
+//        @Header("Authorization") token: String,
+//        @Query("page") page: Int,
+//        @Query("size") size: Int,
+//        @Query("location") location: Int
     ): Response<StoriesResponse>
 
     @Multipart

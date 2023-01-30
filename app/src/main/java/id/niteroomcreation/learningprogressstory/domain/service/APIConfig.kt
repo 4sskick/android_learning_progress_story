@@ -58,13 +58,16 @@ class NetworkInterceptor(val prefUser: PrefUtil) : Interceptor {
         val userId = prefUser.getString(PrefKey.LOGIN_USERID, "")
         val token = prefUser.getString(PrefKey.LOGIN_TOKEN, "")
 
-        LogHelper.j(TAG, userId)
+        LogHelper.e(TAG, userId, token)
 
         var requestBuilder: Request.Builder =
             request.newBuilder().method(request.method, request.body)
 
-        if (userId!!.isNotEmpty())
+        if (userId!!.isNotEmpty()) {
             requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
+
+            LogHelper.e(TAG, requestBuilder)
+        }
 
         return chain.proceed(requestBuilder.build())
 

@@ -14,7 +14,7 @@ import id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActi
 object NavUtil {
 
     fun gotoMain(act: Activity) {
-        intentGoto(act, MainActivity::class.java, false)
+        intentGoto(act, MainActivity::class.java, true)
     }
 
     fun moveToFragment(

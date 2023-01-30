@@ -1,5 +1,6 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
+import id.niteroomcreation.learningprogressstory.data.datasource.StoriesDataSource
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
 
@@ -7,10 +8,10 @@ import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesRes
  * Created by Septian Adi Wijaya on 29/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesRepository : StoriesRepositoryImpl {
+class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepositoryImpl {
 
-    override suspend fun getAllStories(): Resource<StoriesResponse> {
-        return Resource.Error("null", null)
+    override suspend fun getAll(): Resource<StoriesResponse> {
+        return dataSource.getAll()
     }
 
 

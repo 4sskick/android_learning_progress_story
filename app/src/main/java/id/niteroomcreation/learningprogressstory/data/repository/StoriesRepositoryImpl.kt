@@ -9,6 +9,6 @@ import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesRes
  */
 interface StoriesRepositoryImpl {
 
-    suspend fun getAllStories(): Resource<StoriesResponse>
+    suspend fun getAll(): Resource<StoriesResponse>
 
 }
