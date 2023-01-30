@@ -34,7 +34,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
 
     override fun initUI() {
         setupObserver()
-//        setupAdapter();
+        setupAdapter();
     }
 
     private fun setupAdapter() {
@@ -51,11 +51,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
         mViewModel.data.observe(this) {
 
             LogHelper.j(TAG, it)
-
-            adapter = StoriesAdapter(it)
-
-            binding.storiesRv.layoutManager = LinearLayoutManager(context)
-            binding.storiesRv.adapter = adapter
+            adapter.update(it)
         }
     }
 }

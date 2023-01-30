@@ -18,11 +18,16 @@ import id.niteroomcreation.learningprogressstory.util.dateFormatted
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesAdapter(private val data: List<Story>) :
+class StoriesAdapter(private var data: List<Story>) :
     RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
 
     companion object {
         val TAG = StoriesAdapter::class.java.simpleName
+    }
+
+    fun update(data:List<Story>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
     class ViewHolder(binding: IStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
