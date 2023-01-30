@@ -8,5 +8,6 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.register.Regi
  */
 data class RegisterResult(
     val success: RegisterResponse? = null,
-    val error: Int? = null
+    val error: String? = null,
+    val throwable:Throwable? = null
 )

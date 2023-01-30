@@ -1,5 +1,7 @@
 package id.niteroomcreation.learningprogressstory.domain.di
 
+import android.content.Context
+import id.niteroomcreation.learningprogressstory.LearningApp
 import id.niteroomcreation.learningprogressstory.data.datasource.LoginDataSource
 import id.niteroomcreation.learningprogressstory.data.datasource.RegisterDataSource
 import id.niteroomcreation.learningprogressstory.data.repository.*
@@ -23,6 +25,8 @@ object Injection {
         override val unconfined: CoroutineDispatcher
             get() = Dispatchers.Unconfined
     }
+
+    fun provideAppContext():Context =LearningApp.getContext()
 
     fun provideLoginRepository(): LoginRepositoryImpl =
         LoginRepository(dataSource = LoginDataSource())

@@ -1,6 +1,8 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
+import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.data.datasource.RegisterDataSource
+import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.auth.register.RegisterResponse
 
@@ -12,8 +14,14 @@ class RegisterRepository(val dataSource: RegisterDataSource) : RegisterRepositor
     override suspend fun register(
         name: String,
         email: String,
-        password: String
+        password: String,
+        passwordConfirm: String
     ): Resource<RegisterResponse> {
-        return dataSource.register(name, email, password)
+        if (password != passwordConfirm)
+            return Resource.Error(
+                Injection.provideAppContext().resources.getString(R.string.register_failed_password),
+                null
+            )
+        return dataSource.register(name, email, password, passwordConfirm)
     }
 }

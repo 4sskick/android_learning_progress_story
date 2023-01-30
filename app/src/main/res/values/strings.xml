@@ -8,7 +8,10 @@
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+
+    <string name="login_failed">"Masuk gagal"</string>
+    <string name="register_failed">"Daftar gagal"</string>
+    <string name="register_failed_password">"Kata sandi tidak sama"</string>
 
     <string name="info_loading_title">Memuat</string>
     <string name="info_loading_desc">Sedang berjalan, mohon tunggu</string>

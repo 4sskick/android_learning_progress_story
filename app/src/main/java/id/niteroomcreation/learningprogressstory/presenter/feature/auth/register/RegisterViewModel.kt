@@ -2,11 +2,12 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.auth.registe
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.data.repository.RegisterRepositoryImpl
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.auth.register.RegisterResponse
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
+import id.niteroomcreation.learningprogressstory.util.LogHelper
 import kotlinx.coroutines.launch
 
 /**
@@ -18,18 +19,24 @@ class RegisterViewModel(
     private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
-    private val _registerResult = MutableLiveData<RegisterResult>()
-    val registerResult = _registerResult
-
-    fun register(name: String, email: String, password: String) {
-        viewModelScope.launch(dispatcher.io) {
-            val result = registerRepository.register(name, email, password)
-
-            if (result is Resource.Success)
-                _registerResult.postValue(RegisterResult(success = result.data))
-            else
-                _registerResult.postValue(RegisterResult(error = R.string.login_failed))
-        }
+    companion object {
+        val TAG = RegisterViewModel::class.java.simpleName
     }
 
+    //    private val _registerResult = MutableLiveData<RegisterResult>()
+    private val _registerResult = MutableLiveData<Resource<RegisterResponse>>()
+    val registerResult = _registerResult
+
+    fun register(name: String, email: String, password: String, passwordConfirm: String) {
+
+        _registerResult.value = Resource.Loading
+
+        viewModelScope.launch(dispatcher.io) {
+            val result = registerRepository.register(name, email, password, passwordConfirm)
+
+            LogHelper.j(TAG, result)
+
+            _registerResult.postValue(result)
+        }
+    }
 }

@@ -7,7 +7,7 @@ package id.niteroomcreation.learningprogressstory.domain.model
 sealed class Resource<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Resource<T>()
-    data class Error(val exception: Exception) : Resource<Nothing>()
+    data class Error(val message: String, val exception: Exception?) : Resource<Nothing>()
     object Loading : Resource<Nothing>()
 
     override fun toString(): String {

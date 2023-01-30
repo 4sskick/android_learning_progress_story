@@ -9,5 +9,5 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.register.Regi
  */
 interface RegisterRepositoryImpl {
 
-    suspend fun register(name: String, email: String, password: String): Resource<RegisterResponse>
+    suspend fun register(name: String, email: String, password: String, passwordConfirm:String): Resource<RegisterResponse>
 }

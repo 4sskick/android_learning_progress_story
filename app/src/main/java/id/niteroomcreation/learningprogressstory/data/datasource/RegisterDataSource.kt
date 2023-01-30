@@ -2,8 +2,6 @@ package id.niteroomcreation.learningprogressstory.data.datasource
 
 import id.niteroomcreation.learningprogressstory.data.repository.RegisterRepositoryImpl
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
-import id.niteroomcreation.learningprogressstory.domain.model.Resource.Error
-import id.niteroomcreation.learningprogressstory.domain.model.Resource.Success
 import id.niteroomcreation.learningprogressstory.domain.model.auth.register.RegisterResponse
 import id.niteroomcreation.learningprogressstory.domain.service.APIConfig
 import java.io.IOException
@@ -17,16 +15,20 @@ class RegisterDataSource : RegisterRepositoryImpl {
     override suspend fun register(
         name: String,
         email: String,
-        password: String
+        password: String,
+        passwordConfirm: String
     ): Resource<RegisterResponse> = try {
         val response = APIConfig.getApi().register(name, email, password)
         val result = response.body()
 
         if (response.isSuccessful && result != null)
-            Success(result)
+            if (result.error)
+                Resource.Error(result.message, null)
+            else
+                Resource.Success(result)
         else
-            Error(IOException(response.message()))
+            Resource.Error(response.errorBody()!!.string(), IOException(response.message()))
     } catch (e: Exception) {
-        Error(IOException("An error happen", e))
+        Resource.Error("An error happen", IOException(e))
     }
 }

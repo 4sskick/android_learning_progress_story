@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import id.niteroomcreation.learningprogressstory.databinding.FRegisterBinding
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
+import id.niteroomcreation.learningprogressstory.util.LogHelper
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
@@ -45,15 +48,41 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
             }
         })
 
-        binding.registerButton.setOnClickListener(object :OnClickListener{
+        binding.registerButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-                listener.onRegisterOperation()
+//                listener.onRegisterOperation()
+
+                showLoading()
+                mViewModel.register(
+                    binding.registerUserInputEdit.text.toString(),
+                    binding.registerEmailInputEdit.text.toString(),
+                    binding.registerPasswInputEdit.text.toString(),
+                    binding.registerPasswConfirmInputEdit.text.toString()
+                )
             }
         })
     }
 
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, RegisterViewModel::class.java)
+
+        mViewModel.registerResult.observe(this, Observer {
+
+            LogHelper.j(TAG, it)
+
+            when (it) {
+                is Resource.Error -> {
+                    dismissLoading()
+                    showMessage(it.message)
+                }
+                is Resource.Loading -> showLoading()
+                is Resource.Success -> {
+                    dismissLoading()
+                    showMessage(it.data.message)
+                }
+            }
+
+        })
     }
 
     override fun onAttach(context: Context) {
