@@ -11,21 +11,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.niteroomcreation.learningprogressstory.databinding.IStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
-import id.niteroomcreation.learningprogressstory.util.LogHelper
+import id.niteroomcreation.learningprogressstory.presenter.listener.ItemViewClickListener
 import id.niteroomcreation.learningprogressstory.util.dateFormatted
 
 /**
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesAdapter(private var data: List<Story>) :
+class StoriesAdapter(
+    private var data: List<Story>,
+    private var listener: ItemViewClickListener<Story>
+) :
     RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
 
     companion object {
         val TAG = StoriesAdapter::class.java.simpleName
     }
 
-    fun update(data:List<Story>){
+    fun update(data: List<Story>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -65,7 +68,7 @@ class StoriesAdapter(private var data: List<Story>) :
 
         holder.iLayoutParent.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-                LogHelper.e(TAG)
+                listener.onItemClicked(story)
             }
         })
     }

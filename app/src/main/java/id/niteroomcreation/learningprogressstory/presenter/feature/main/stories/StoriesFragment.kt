@@ -8,7 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
+import id.niteroomcreation.learningprogressstory.presenter.listener.ItemViewClickListener
 import id.niteroomcreation.learningprogressstory.util.LogHelper
 
 /**
@@ -42,7 +45,13 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
 
     private fun setupAdapter() {
 
-        adapter = StoriesAdapter(emptyList())
+        adapter = StoriesAdapter(
+            emptyList(), listener = object : ItemViewClickListener<Story> {
+                override fun onItemClicked(model: Story) {
+                    LogHelper.j(TAG, model)
+                }
+            }
+        )
 
         binding.storiesRv.layoutManager = LinearLayoutManager(context)
         binding.storiesRv.adapter = adapter

@@ -11,4 +11,5 @@ interface StoriesRepositoryImpl {
 
     suspend fun getAll(): Resource<StoriesResponse>
 
+    suspend fun getDetailById():Resource<StoriesResponse>
 }

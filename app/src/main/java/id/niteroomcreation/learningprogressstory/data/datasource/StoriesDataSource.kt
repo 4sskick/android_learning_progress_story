@@ -26,4 +26,10 @@ class StoriesDataSource : StoriesRepositoryImpl {
     } catch (e: Exception) {
         Resource.Error("An error happen", IOException(e))
     }
+
+    override suspend fun getDetailById(): Resource<StoriesResponse> {
+        val response = APIConfig.getApi().getStories()
+
+        return Resource.Loading
+    }
 }

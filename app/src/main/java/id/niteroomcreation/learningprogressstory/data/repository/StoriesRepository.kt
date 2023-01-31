@@ -14,5 +14,7 @@ class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepo
         return dataSource.getAll()
     }
 
-
+    override suspend fun getDetailById(): Resource<StoriesResponse> {
+        return Resource.Loading
+    }
 }

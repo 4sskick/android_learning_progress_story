@@ -31,7 +31,7 @@ class StoriesViewModel(
         getStories()
     }
 
-    fun getStories() {
+    private fun getStories() {
         storiesResult_.value = Resource.Loading
         viewModelScope.launch(dispatcher.io) {
             val result = storiesRepository.getAll()
