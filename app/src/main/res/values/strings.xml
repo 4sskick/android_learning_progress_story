@@ -33,5 +33,8 @@
     <string name="lbl_back">Kembali</string>
     <string name="lbl_story_created_by">Diposting oleh</string>
     <string name="lbl_description">Deskripsi</string>
+    <string name="lbl_setting">Pengaturan</string>
+    <string name="lbl_logout">Keluar</string>
+    <string name="lbl_language">Bahasa</string>
 
 </resources>
