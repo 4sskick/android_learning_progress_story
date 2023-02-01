@@ -31,5 +31,7 @@
     <string name="lbl_confirm_passw_hint">KonfirmasI Sandi</string>
     <string name="lbl_register">Daftar</string>
     <string name="lbl_back">Kembali</string>
+    <string name="lbl_story_created_by">Diposting oleh</string>
+    <string name="lbl_description">Deskripsi</string>
 
 </resources>

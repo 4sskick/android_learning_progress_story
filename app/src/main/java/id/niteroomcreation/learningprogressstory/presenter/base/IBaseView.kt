@@ -21,6 +21,10 @@ interface IBaseView {
         return null
     }
 
+    fun onCreateAnimInside(){
+
+    }
+
     fun onCreateInside() {
 
     }

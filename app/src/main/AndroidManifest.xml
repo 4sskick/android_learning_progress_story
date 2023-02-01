@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActivity" />
+        <activity android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity" />
     </application>
 
 </manifest>

@@ -35,6 +35,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        onCreateAnimInside()
+
         binding = BActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

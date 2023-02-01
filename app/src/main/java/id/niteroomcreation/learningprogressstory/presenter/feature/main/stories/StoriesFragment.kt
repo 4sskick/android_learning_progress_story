@@ -1,5 +1,7 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity
 import id.niteroomcreation.learningprogressstory.presenter.listener.ItemViewClickListener
 import id.niteroomcreation.learningprogressstory.util.LogHelper
 
@@ -49,6 +52,10 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
             emptyList(), listener = object : ItemViewClickListener<Story> {
                 override fun onItemClicked(model: Story) {
                     LogHelper.j(TAG, model)
+
+                    startActivity(Intent(requireContext(), StoryDetailActivity::class.java).also {
+                        it.putExtra("data", model)
+                    }, ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle())
                 }
             }
         )
