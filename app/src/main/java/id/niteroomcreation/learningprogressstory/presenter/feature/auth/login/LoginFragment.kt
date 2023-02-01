@@ -13,8 +13,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterFragment
-import id.niteroomcreation.learningprogressstory.util.LogHelper
-import id.niteroomcreation.learningprogressstory.util.PrefKey
+import id.niteroomcreation.learningprogressstory.util.*
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
 
@@ -42,6 +41,12 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         setupObserver()
         setupAnimation()
 
+        isAllValid()
+
+        binding.loginEmailInputEdit.afterTextChanged { isAllValid() }
+        binding.loginPasswInputEdit.afterTextChanged { isAllValid() }
+
+
         binding.loginButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
 
@@ -66,6 +71,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
+
     }
 
     override fun setupObserver() {
@@ -96,54 +102,13 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 }
             }
         })
-//
-//        username.afterTextChanged {
-//            loginViewModel.loginDataChanged(
-//                username.text.toString(),
-//                password.text.toString()
-//            )
-//        }
-//
-//        password.apply {
-//            afterTextChanged {
-//                loginViewModel.loginDataChanged(
-//                    username.text.toString(),
-//                    password.text.toString()
-//                )
-//            }
-//
-//            setOnEditorActionListener { _, actionId, _ ->
-//                when (actionId) {
-//                    EditorInfo.IME_ACTION_DONE ->
-//                        loginViewModel.login(
-//                            username.text.toString(),
-//                            password.text.toString()
-//                        )
-//                }
-//                false
-//            }
-//
-//            login.setOnClickListener {
-//                loading.visibility = View.VISIBLE
-//                loginViewModel.login(username.text.toString(), password.text.toString())
-//            }
-//        }
     }
 
-//    private fun updateUiWithUser(model: LoggedInUserView) {
-//        val welcome = getString(R.string.welcome)
-//        val displayName = model.displayName
-//        // TODO : initiate successful logged in experience
-//        Toast.makeText(
-//            context,
-//            "$welcome $displayName",
-//            Toast.LENGTH_LONG
-//        ).show()
-//    }
-//
-//    private fun showLoginFailed(@StringRes errorString: Int) {
-//        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
-//    }
+    private fun isAllValid() {
+        val email = binding.loginEmailInputEdit.text.toString()
+        val pass = binding.loginPasswInputEdit.text.toString()
+        binding.loginButton.isEnabled = isValidEmail(email) && isValidMinLength(pass)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -158,18 +123,3 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         fun onLoginOperation()
     }
 }
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-//fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-//    this.addTextChangedListener(object : TextWatcher {
-//        override fun afterTextChanged(editable: Editable?) {
-//            afterTextChanged.invoke(editable.toString())
-//        }
-//
-//        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//
-//        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-//    })
-//}

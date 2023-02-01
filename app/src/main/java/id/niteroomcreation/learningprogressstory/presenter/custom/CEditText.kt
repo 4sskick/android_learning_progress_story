@@ -5,6 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import com.google.android.material.textfield.TextInputEditText
+import id.niteroomcreation.learningprogressstory.R
+import id.niteroomcreation.learningprogressstory.util.isValidEmail
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
@@ -46,7 +48,10 @@ class CEditText : TextInputEditText {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
+                if (isValidEmail(s.toString()) or s.toString().isEmpty())
+                    this@CEditText.error = null
+                else
+                    this@CEditText.error = context.getString(R.string.invalid_email)
             }
         })
     }

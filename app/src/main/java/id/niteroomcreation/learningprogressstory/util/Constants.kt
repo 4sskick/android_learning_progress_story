@@ -11,4 +11,6 @@ object Constants {
     const val CREATED_DATE_FORMAT = "dd-MMM-yyyy"
     const val PREF_USER = "pref_user"
     const val PREF_APP = "pref_app"
+
+    const val MIN_LENGTH_PASSWORD = 6
 }
