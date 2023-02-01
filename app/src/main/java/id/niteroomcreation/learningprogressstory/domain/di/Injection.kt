@@ -47,4 +47,6 @@ object Injection {
 
     fun provideStoriesRepository(): StoriesRepositoryImpl =
         StoriesRepository(dataSource = StoriesDataSource())
+
+    fun provideProfileRepository(): ProfileRepositoryImpl = ProfileRepository()
 }

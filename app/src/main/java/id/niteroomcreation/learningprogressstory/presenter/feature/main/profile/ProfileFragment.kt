@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import id.niteroomcreation.learningprogressstory.databinding.FProfileBinding
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 
 /**
@@ -30,8 +32,25 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     }
 
     override fun initUI() {
-
+        setupObserver()
     }
 
+    override fun setupObserver() {
+        mViewModel = obtainViewModel(this, ProfileViewModel::class.java)
+        mViewModel.profileResult.observe(this, Observer {
+            when (it) {
+                is Resource.Error -> {
+                    dismissLoading()
+                    showMessage(it.message)
+                }
+                is Resource.Loading -> showLoading()
+                is Resource.Success -> {
+                    dismissLoading()
+                    binding.profileUsername.text = it.data.displayName
+                    binding.profileUserId.text = it.data.userId
 
+                }
+            }
+        })
+    }
 }

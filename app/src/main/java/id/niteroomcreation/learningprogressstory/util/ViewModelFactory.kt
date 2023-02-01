@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.niteroomcreation.learningprogressstory.domain.di.Injection
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.login.LoginViewModel
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.register.RegisterViewModel
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.profile.ProfileViewModel
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
 
 /**
@@ -46,6 +47,11 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
         else if (modelClass.isAssignableFrom(StoriesViewModel::class.java))
             return StoriesViewModel(
                 storiesRepository = Injection.provideStoriesRepository(),
+                dispatcher = Injection.provideDispatcher()
+            ) as T
+        else if (modelClass.isAssignableFrom(ProfileViewModel::class.java))
+            return ProfileViewModel(
+                profileRepository = Injection.provideProfileRepository(),
                 dispatcher = Injection.provideDispatcher()
             ) as T
 
