@@ -34,5 +34,7 @@
     <string name="lbl_setting">Pengaturan</string>
     <string name="lbl_logout">Keluar</string>
     <string name="lbl_language">Bahasa</string>
+    <string name="lbl_story">Cerita</string>
+    <string name="lbl_profile">Akun</string>
 
 </resources>

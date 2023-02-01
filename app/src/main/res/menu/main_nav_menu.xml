@@ -4,11 +4,11 @@
     <item
         android:id="@+id/nav_stories"
         android:icon="@drawable/ic_material"
-        android:title="Cerita" />
+        android:title="@string/lbl_story" />
 
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person"
-        android:title="Akun" />
+        android:title="@string/lbl_profile" />
 
 </menu>

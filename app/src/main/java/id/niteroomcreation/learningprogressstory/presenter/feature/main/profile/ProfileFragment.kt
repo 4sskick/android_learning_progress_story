@@ -1,11 +1,11 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.main.profile
 
 import android.app.Activity
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import id.niteroomcreation.learningprogressstory.databinding.FProfileBinding
@@ -38,14 +38,20 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     override fun initUI() {
         setupObserver()
 
-        binding.profileLayoutLogout.setOnClickListener(object : OnClickListener {
-            override fun onClick(v: View?) {
-                prefUser.deleteByPref(PrefKey.LOGIN_TOKEN)
-                prefApp.setBoolean(PrefKey.LOGIN_FLAG, false)
+        binding.profileLayoutLogout.setOnClickListener {
+            prefUser.deleteByPref(PrefKey.LOGIN_TOKEN)
+            prefApp.setBoolean(PrefKey.LOGIN_FLAG, false)
 
-                NavUtil.gotoAuth(context as Activity)
-            }
-        })
+            NavUtil.gotoAuth(context as Activity)
+        }
+
+        binding.profileLayoutLanguage.setOnClickListener {
+            startActivity(
+                Intent(
+                    Settings.ACTION_LOCALE_SETTINGS
+                )
+            )
+        }
     }
 
     override fun setupObserver() {
