@@ -1,5 +1,6 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.auth.login
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,6 +40,7 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     override fun initUI() {
         setupObserver()
+        setupAnimation()
 
         binding.loginButton.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
@@ -56,6 +58,14 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 listener.onGotoRegister()
             }
         })
+    }
+
+    private fun setupAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -40f, 40f).apply {
+            duration = 2000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
     override fun setupObserver() {
