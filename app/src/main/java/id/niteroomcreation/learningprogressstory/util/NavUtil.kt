@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity
 
@@ -13,6 +14,10 @@ import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.
  * please be sure to add credential if you use people's code
  */
 object NavUtil {
+
+    fun gotoAuth(act: Activity) {
+        intentGoto(act, AuthActivity::class.java, true)
+    }
 
     fun gotoMain(act: Activity) {
         intentGoto(act, MainActivity::class.java, true)

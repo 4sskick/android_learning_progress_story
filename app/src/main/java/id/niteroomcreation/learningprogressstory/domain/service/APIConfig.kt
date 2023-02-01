@@ -55,8 +55,8 @@ class NetworkInterceptor(val prefUser: PrefUtil) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
 
-        val userId = prefUser.getString(PrefKey.LOGIN_USERID, "")
-        val token = prefUser.getString(PrefKey.LOGIN_TOKEN, "")
+        val userId = prefUser.getString(PrefKey.LOGIN_USERID)
+        val token = prefUser.getString(PrefKey.LOGIN_TOKEN)
 
         LogHelper.e(TAG, userId, token)
 

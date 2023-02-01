@@ -82,6 +82,7 @@ class StoriesAdapter(private var data: List<Story>) :
                         Pair(holder.date, "detail_date_val"),
                     ).toBundle()
                 )
+
             }
         })
     }

@@ -11,6 +11,8 @@ import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
 import id.niteroomcreation.learningprogressstory.util.LogHelper
+import id.niteroomcreation.learningprogressstory.util.NavUtil
+import id.niteroomcreation.learningprogressstory.util.PrefKey
 
 /**
  * Created by Septian Adi Wijaya on 24/01/2023.
@@ -53,13 +55,21 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
         mViewModel = obtainViewModel(this, StoriesViewModel::class.java)
 
         mViewModel.storiesResult.observe(this, Observer {
-            LogHelper.j(TAG, it)
+            LogHelper.j(TAG, it, prefUser)
 
             when (it) {
                 is Resource.Loading -> showLoading()
                 is Resource.Error -> {
                     dismissLoading()
-                    showMessage(it.message)
+
+                    if (it.exception?.message != null) {
+                        showMessage(it.exception.message)
+
+                        if (!prefApp.getBoolean(PrefKey.LOGIN_FLAG)) {
+                            NavUtil.gotoAuth(requireActivity())
+                        }
+                    } else
+                        showMessage(it.message)
                 }
                 is Resource.Success -> {
                     dismissLoading()

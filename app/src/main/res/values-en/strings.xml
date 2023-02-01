@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Learning Progress Story</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome !</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="login_failed">Sign in failed</string>
+    <string name="register_failed">Register failed</string>
+    <string name="register_failed_password">Password doesn\'\\t equal</string>
+    <string name="info_loading_title">Loading</string>
+    <string name="info_loading_desc">Running, please wait</string>
+    <string name="info_is_running">Running, please wait</string>
+    <string name="info_failed_username">Not a valid username</string>
+    <string name="info_failed_password">Not a valid password</string>
+    <string name="lbl_login">Sign in</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_email_hint">Input Email</string>
+    <string name="lbl_username">Username</string>
+    <string name="lbl_username_hint">Input username</string>
+    <string name="lbl_passw">Password</string>
+    <string name="lbl_passw_hint">Input password</string>
+    <string name="lbl_confirm_passw">Confirm password</string>
+    <string name="lbl_confirm_passw_hint">Confirm password</string>
+    <string name="lbl_register">Register</string>
+    <string name="lbl_back">Back</string>
+    <string name="lbl_story_created_by">Posted by</string>
+    <string name="lbl_description">Description</string>
+    <string name="lbl_setting">Setting</string>
+    <string name="lbl_logout">Sign out</string>
+    <string name="lbl_language">Language</string>
+    <string name="invalid_password">Password must be at least 5 characters</string>
+</resources>
