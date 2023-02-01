@@ -18,6 +18,7 @@ class StoryDetailActivity : BaseActivity() {
 
     companion object {
         val TAG = StoryDetailActivity::class.java.simpleName
+        val DATA = "data"
     }
 
     private lateinit var binding: AStoryDetailBinding

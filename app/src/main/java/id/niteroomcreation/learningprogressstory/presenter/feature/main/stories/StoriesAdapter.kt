@@ -1,5 +1,9 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
+import android.app.Activity
+import android.app.ActivityOptions
+import android.content.Intent
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -11,17 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.niteroomcreation.learningprogressstory.databinding.IStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
-import id.niteroomcreation.learningprogressstory.presenter.listener.ItemViewClickListener
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity
 import id.niteroomcreation.learningprogressstory.util.dateFormatted
 
 /**
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesAdapter(
-    private var data: List<Story>,
-    private var listener: ItemViewClickListener<Story>
-) :
+class StoriesAdapter(private var data: List<Story>) :
     RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
 
     companion object {
@@ -68,7 +69,19 @@ class StoriesAdapter(
 
         holder.iLayoutParent.setOnClickListener(object : OnClickListener {
             override fun onClick(v: View?) {
-                listener.onItemClicked(story)
+
+                holder.itemView.context.startActivity(
+                    Intent(holder.itemView.context, StoryDetailActivity::class.java).also {
+                        it.putExtra(StoryDetailActivity.DATA, story)
+                    },
+                    ActivityOptions.makeSceneTransitionAnimation(
+                        holder.itemView.context as Activity,
+                        Pair(holder.image, "detail_image"),
+                        Pair(holder.username, "detail_posted_by_val"),
+                        Pair(holder.desc, "detail_desc_val"),
+                        Pair(holder.date, "detail_date_val"),
+                    ).toBundle()
+                )
             }
         })
     }

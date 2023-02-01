@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:transitionName="detail_image"
             android:id="@+id/detail_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -42,6 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guidelineHorizontal2" />
 
         <TextView
+            android:transitionName="detail_posted_by_val"
             android:id="@+id/detail_posted_by_val"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,6 +54,7 @@
             tools:text="story user creator" />
 
         <TextView
+            android:transitionName="detail_date_val"
             android:id="@+id/detail_date_val"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,6 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_posted_by_val" />
 
         <TextView
+            android:transitionName="detail_desc_val"
             android:id="@+id/detail_desc_val"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
