@@ -11,8 +11,7 @@ import id.niteroomcreation.learningprogressstory.databinding.FRegisterBinding
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthInterface
-import id.niteroomcreation.learningprogressstory.util.LogHelper
-import id.niteroomcreation.learningprogressstory.util.PrefKey
+import id.niteroomcreation.learningprogressstory.util.*
 
 /**
  * Created by Septian Adi Wijaya on 20/01/2023.
@@ -42,23 +41,29 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
 
     override fun initUI() {
         setupObserver()
+        isAllValid()
 
-        binding.registerBack.setOnClickListener(object : OnClickListener {
-            override fun onClick(v: View?) {
-                listener.onGotoLogin()
-            }
-        })
+        binding.registerBack.setOnClickListener { listener.onGotoLogin() }
+        binding.registerButton.setOnClickListener {
+            mViewModel.register(
+                binding.registerUserInputEdit.text.toString(),
+                binding.registerEmailInputEdit.text.toString(),
+                binding.registerPasswInputEdit.text.toString(),
+                binding.registerPasswConfirmInputEdit.text.toString()
+            )
+        }
 
-        binding.registerButton.setOnClickListener(object : OnClickListener {
-            override fun onClick(v: View?) {
-                mViewModel.register(
-                    binding.registerUserInputEdit.text.toString(),
-                    binding.registerEmailInputEdit.text.toString(),
-                    binding.registerPasswInputEdit.text.toString(),
-                    binding.registerPasswConfirmInputEdit.text.toString()
-                )
-            }
-        })
+        binding.registerEmailInputEdit.afterTextChanged { isAllValid() }
+        binding.registerPasswInputEdit.afterTextChanged { isAllValid() }
+        binding.registerPasswConfirmInputEdit.afterTextChanged { isAllValid() }
+    }
+
+    private fun isAllValid() {
+        val email = binding.registerEmailInputEdit.text.toString()
+        val pass = binding.registerPasswInputEdit.text.toString()
+        val passConfirm = binding.registerPasswConfirmInputEdit.text.toString()
+        binding.registerButton.isEnabled =
+            isValidEmail(email) && isValidMinLength(pass) && isValidMinLength(passConfirm)
     }
 
     override fun setupObserver() {
