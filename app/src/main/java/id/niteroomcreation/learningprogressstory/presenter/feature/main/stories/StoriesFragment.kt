@@ -1,5 +1,7 @@
 package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
 import id.niteroomcreation.learningprogressstory.util.LogHelper
 import id.niteroomcreation.learningprogressstory.util.NavUtil
 import id.niteroomcreation.learningprogressstory.util.PrefKey
@@ -41,6 +44,13 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
         setupObserver()
         setupAdapter();
 
+        binding.storiesCreate.setOnClickListener {
+            this@StoriesFragment.activity?.let { it1 -> /*NavUtil.gotoStoryCreate(it1)*/startActivity(
+                Intent(it1, StoryCreateActivity::class.java),
+                ActivityOptions.makeSceneTransitionAnimation(it1).toBundle()
+            )
+            }
+        }
     }
 
     private fun setupAdapter() {

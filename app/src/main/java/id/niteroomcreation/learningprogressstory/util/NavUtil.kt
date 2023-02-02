@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import id.niteroomcreation.learningprogressstory.presenter.feature.auth.AuthActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActivity
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity
 
 /**
@@ -25,6 +26,10 @@ object NavUtil {
 
     fun gotoStoryDetail(act: Activity, b: Bundle) {
         intentGoto(act, StoryDetailActivity::class.java, b, false)
+    }
+
+    fun gotoStoryCreate(act: Activity) {
+        intentGoto(act, StoryCreateActivity::class.java, false)
     }
 
     fun moveToFragment(

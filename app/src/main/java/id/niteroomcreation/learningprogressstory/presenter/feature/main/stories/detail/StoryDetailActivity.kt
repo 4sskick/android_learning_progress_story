@@ -24,7 +24,7 @@ class StoryDetailActivity : BaseActivity() {
     private lateinit var binding: AStoryDetailBinding
 
     private val data: Story? by lazy {
-        intent.getParcelableExtra<Story>("data")
+        intent.getParcelableExtra<Story>(DATA)
     }
 
     override fun onCreateAnimInside() {
