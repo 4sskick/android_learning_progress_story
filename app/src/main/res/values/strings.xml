@@ -37,5 +37,7 @@
     <string name="lbl_language">Bahasa</string>
     <string name="lbl_story">Cerita</string>
     <string name="lbl_profile">Akun</string>
+    <string name="lbl_permission_denied">Izin ditolak</string>
+    <string name="lbl_choose_image">Pilih 1 gambar</string>
 
 </resources>

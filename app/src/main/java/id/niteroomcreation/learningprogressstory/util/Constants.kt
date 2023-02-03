@@ -13,4 +13,8 @@ object Constants {
     const val PREF_APP = "pref_app"
 
     const val MIN_LENGTH_PASSWORD = 6
+    const val REQUIRED_PERMISSIONS_REQUEST_CODE = 99
+    const val SIZE_BYTE_ARRAY = 1024
+
+    val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
 }
