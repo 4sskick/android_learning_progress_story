@@ -35,6 +35,16 @@
         <activity android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.MainActivity" />
         <activity android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.detail.StoryDetailActivity" />
         <activity android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="id.niteroomcreation.learningprogressstory"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

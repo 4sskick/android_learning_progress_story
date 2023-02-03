@@ -2,17 +2,21 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.MediaStore
 import android.transition.Fade
 import android.transition.Slide
 import android.view.Window
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.AStoryCreateBinding
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseActivity
 import id.niteroomcreation.learningprogressstory.util.Constants
+import id.niteroomcreation.learningprogressstory.util.storeTempFile
 import id.niteroomcreation.learningprogressstory.util.uriToFile
 import java.io.File
 
@@ -32,6 +36,7 @@ class StoryCreateActivity : BaseActivity() {
     private lateinit var binding: AStoryCreateBinding
 
     private var currentSelectedImage: File? = null
+    private lateinit var currentSelectedImageCamera: String
 
     override fun initUI() {
         setupObserver()
@@ -83,10 +88,8 @@ class StoryCreateActivity : BaseActivity() {
 
     private fun doPickOperation() {
         if (modeCall.equals(call_gallery)) {
-            //do pick from galery
             pickFromGallery()
         } else {
-            //do take camera
             pickFromCamera()
         }
 
@@ -110,14 +113,39 @@ class StoryCreateActivity : BaseActivity() {
         intent.type = "image/*"
 
         val chooser = Intent.createChooser(intent, getString(R.string.lbl_choose_image))
-        launcherIntentGallery.launch(chooser)
+        launcherPickGallery.launch(chooser)
     }
 
     private fun pickFromCamera() {
-        showMessage("will be soon")
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.resolveActivity(packageManager)
+
+        storeTempFile(this@StoryCreateActivity).also {
+            val photoUri: Uri = FileProvider.getUriForFile(
+                this@StoryCreateActivity,
+                "id.niteroomcreation.learningprogressstory",
+                it
+            )
+
+            currentSelectedImageCamera = it.absolutePath
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+
+            launcherPickCamera.launch(intent)
+        }
     }
 
-    private val launcherIntentGallery = registerForActivityResult(
+    private val launcherPickCamera = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            currentSelectedImage = File(currentSelectedImageCamera)
+            val result = BitmapFactory.decodeFile(currentSelectedImage!!.path)
+
+            binding.storyCreateImage.setImageBitmap(result)
+        }
+    }
+
+    private val launcherPickGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {

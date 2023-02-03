@@ -55,7 +55,7 @@ val currentTimeStamp: String = SimpleDateFormat(
     Locale.US
 ).format(System.currentTimeMillis())
 
-private fun storeTempFile(context: Context): File {
+fun storeTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(currentTimeStamp, ".jpg", storageDir)
 }
