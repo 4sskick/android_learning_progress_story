@@ -65,8 +65,6 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
         mViewModel = obtainViewModel(this, StoriesViewModel::class.java)
 
         mViewModel.storiesResult.observe(this, Observer {
-            LogHelper.j(TAG, it, prefUser)
-
             when (it) {
                 is Resource.Loading -> showLoading()
                 is Resource.Error -> {
@@ -83,7 +81,11 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
                 }
                 is Resource.Success -> {
                     dismissLoading()
-                    adapter.update(it.data.listStory)
+
+                    if (it.data.listStory.isEmpty())
+                        showMessage("Data kosong tidak ditemukan")
+                    else
+                        adapter.update(it.data.listStory)
                 }
             }
 

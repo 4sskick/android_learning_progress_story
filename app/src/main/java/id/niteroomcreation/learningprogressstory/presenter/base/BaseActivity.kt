@@ -95,7 +95,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         toast.cancel()
 
         if (!message.isNullOrEmpty())
-            toast = Toast.makeText(this, message, Toast.LENGTH_SHORT).also { it.show() }
+            toast = Toast.makeText(this, message, Toast.LENGTH_LONG).also { it.show() }
     }
 
     override fun showMessage(resId: Int) {
