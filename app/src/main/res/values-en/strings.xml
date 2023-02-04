@@ -41,4 +41,5 @@
     <string name="lbl_camera">Camera</string>
     <string name="lbl_gallery">Gallery</string>
     <string name="lbl_create">Create</string>
+    <string name="info_register_succeed">Register succeed</string>
 </resources>

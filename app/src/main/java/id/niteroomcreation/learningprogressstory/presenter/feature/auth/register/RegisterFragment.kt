@@ -4,9 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FRegisterBinding
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
@@ -82,7 +82,9 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
                 is Resource.Loading -> showLoading()
                 is Resource.Success -> {
                     dismissLoading()
-                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, true)
+                    prefApp.setBoolean(PrefKey.LOGIN_FLAG, false)
+                    showMessage(getString(R.string.info_register_succeed))
+
                     listener.onRegisterOperation()
 
                 }

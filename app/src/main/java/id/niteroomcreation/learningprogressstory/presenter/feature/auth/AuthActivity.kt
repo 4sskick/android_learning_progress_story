@@ -72,7 +72,7 @@ class AuthActivity : BaseActivity(),
     }
 
     override fun onRegisterOperation() {
-        NavUtil.gotoMain(this)
+        onGotoLogin()
     }
 
     override fun onLoginOperation() {
