@@ -54,9 +54,9 @@ class StoryDetailActivity : BaseActivity() {
                 .fitCenter()
                 .into(binding.detailImage)
 
-            binding.detailDescVal.setText(data!!.description)
-            binding.detailPostedByVal.setText(data!!.name)
-            binding.detailDateVal.setText(data!!.createdAt.dateFormatted())
+            binding.detailDescVal.text = data!!.description
+            binding.detailPostedByVal.text = data!!.name
+            binding.detailDateVal.text = data!!.createdAt.dateFormatted()
         } else
             finish()
     }

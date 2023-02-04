@@ -42,7 +42,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
 
     override fun initUI() {
         setupObserver()
-        setupAdapter();
+        setupAdapter()
 
         binding.storiesCreate.setOnClickListener {
             this@StoriesFragment.activity?.let { it1 -> /*NavUtil.gotoStoryCreate(it1)*/startActivity(

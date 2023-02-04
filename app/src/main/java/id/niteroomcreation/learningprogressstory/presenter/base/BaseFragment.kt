@@ -53,7 +53,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IBaseView {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseActivity)
-            activity = context as BaseActivity
+            activity = context
         else
             throw RuntimeException("attaching attach() failed on ${context::class.java.simpleName}")
     }

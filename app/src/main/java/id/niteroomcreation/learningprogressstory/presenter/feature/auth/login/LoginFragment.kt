@@ -114,9 +114,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         super.onAttach(context)
 
         if (context is LoginInterface)
-            listener = context as LoginInterface
+            listener = context
         else
-            throw RuntimeException("${context.toString()} need to implement LoginInterface")
+            throw RuntimeException("$context need to implement LoginInterface")
     }
 
     interface LoginInterface : AuthInterface {

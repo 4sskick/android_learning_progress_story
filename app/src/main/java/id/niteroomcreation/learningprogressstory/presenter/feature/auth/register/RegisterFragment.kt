@@ -97,9 +97,9 @@ class RegisterFragment : BaseFragment<RegisterViewModel>() {
         super.onAttach(context)
 
         if (context is RegisterInterface)
-            listener = context as RegisterInterface
+            listener = context
         else
-            throw RuntimeException("${context.toString()} need to implement RegisterInterface")
+            throw RuntimeException("$context need to implement RegisterInterface")
     }
 
     interface RegisterInterface : AuthInterface {
