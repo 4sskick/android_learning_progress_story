@@ -18,6 +18,7 @@
     <string name="info_is_running">Sedang berjalan, mohon tunggu</string>
     <string name="info_failed_username">"Username tidak valid"</string>
     <string name="info_failed_password">"Password tidak valid"</string>
+    <string name="info_cant_empty">Tidak boleh kosong</string>
 
     <string name="lbl_login">Masuk</string>
     <string name="lbl_email">Email</string>
@@ -39,5 +40,10 @@
     <string name="lbl_profile">Akun</string>
     <string name="lbl_permission_denied">Izin ditolak</string>
     <string name="lbl_choose_image">Pilih 1 gambar</string>
+    <string name="info_image_cant_empty">Gambar tidak boleh kosong</string>
+    <string name="info_success_post_story">Cerita berhasil dibuat</string>
+    <string name="lbl_camera">Kamera</string>
+    <string name="lbl_gallery">Galeri</string>
+    <string name="lbl_create">Buat</string>
 
 </resources>

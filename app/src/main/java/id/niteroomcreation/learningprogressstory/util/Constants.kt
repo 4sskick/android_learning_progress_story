@@ -15,6 +15,7 @@ object Constants {
     const val MIN_LENGTH_PASSWORD = 6
     const val REQUIRED_PERMISSIONS_REQUEST_CODE = 99
     const val SIZE_BYTE_ARRAY = 1024
+    const val STREAM_LENGTH = 1000000
 
     val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
 }

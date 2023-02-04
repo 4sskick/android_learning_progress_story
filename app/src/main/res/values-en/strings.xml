@@ -35,4 +35,10 @@
     <string name="lbl_profile">Profile</string>
     <string name="lbl_permission_denied">Permission denied</string>
     <string name="lbl_choose_image">Choose a picture</string>
+    <string name="info_cant_empty">Can not empty</string>
+    <string name="info_image_cant_empty">Image can not empty</string>
+    <string name="info_success_post_story">Story posted successfully</string>
+    <string name="lbl_camera">Camera</string>
+    <string name="lbl_gallery">Gallery</string>
+    <string name="lbl_create">Create</string>
 </resources>
