@@ -1,0 +1,7 @@
+<resources>
+
+    <declare-styleable name="CEditText">
+        <attr name="is_email" format="boolean" />
+        <attr name="is_password" format="boolean" />
+    </declare-styleable>
+</resources>

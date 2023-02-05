@@ -12,7 +12,7 @@ object Constants {
     const val PREF_USER = "pref_user"
     const val PREF_APP = "pref_app"
 
-    const val MIN_LENGTH_PASSWORD = 6
+    const val MIN_LENGTH_PASSWORD = 8
     const val REQUIRED_PERMISSIONS_REQUEST_CODE = 99
     const val SIZE_BYTE_ARRAY = 1024
     const val STREAM_LENGTH = 1000000

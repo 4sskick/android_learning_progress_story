@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lbl_email_hint"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            app:is_email="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -83,12 +84,13 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_lock">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <id.niteroomcreation.learningprogressstory.presenter.custom.CEditText
             android:id="@+id/register_passw_input_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lbl_passw_hint"
             android:inputType="textPassword"
+            app:is_password="true"
             app:passwordToggleEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,12 +116,13 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_lock">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <id.niteroomcreation.learningprogressstory.presenter.custom.CEditText
             android:id="@+id/register_passw_confirm_input_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lbl_confirm_passw_hint"
             android:inputType="textPassword"
+            app:is_password="true"
             app:passwordToggleEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
