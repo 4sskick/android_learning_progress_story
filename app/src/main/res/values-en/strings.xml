@@ -30,7 +30,7 @@
     <string name="lbl_setting">Setting</string>
     <string name="lbl_logout">Sign out</string>
     <string name="lbl_language">Language</string>
-    <string name="invalid_password">Password must be at least 5 characters</string>
+    <string name="invalid_password">Password must be at least 8 characters</string>
     <string name="lbl_story">Story</string>
     <string name="lbl_profile">Profile</string>
     <string name="lbl_permission_denied">Permission denied</string>

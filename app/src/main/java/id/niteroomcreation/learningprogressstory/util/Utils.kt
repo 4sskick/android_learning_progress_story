@@ -5,20 +5,37 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import java.io.*
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
+
+
+//@RequiresApi(Build.VERSION_CODES.O)
+fun String.dateFormatWithTime(): String {
+    if (this.isBlank())
+        return ""
+
+    val instant = Instant.parse(this)
+    val formatter = DateTimeFormatter.ofPattern(Constants.UTC_FORMAT_)
+        .withZone(ZoneId.of(TimeZone.getDefault().id))
+    return formatter.format(instant)
+}
 
 fun String.dateFormatted(): String {
 
