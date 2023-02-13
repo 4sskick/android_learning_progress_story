@@ -16,7 +16,7 @@ import okhttp3.RequestBody
  */
 interface StoriesRepositoryImpl {
 
-    suspend fun getAll_(): Flow<PagingData<Story>> {
+    fun getAll_(): Flow<PagingData<Story>> {
         return emptyFlow()
     }
 

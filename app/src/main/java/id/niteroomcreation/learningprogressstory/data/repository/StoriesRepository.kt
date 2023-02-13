@@ -22,7 +22,7 @@ import okhttp3.RequestBody
 class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepositoryImpl {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getAll_(): Flow<PagingData<Story>> {
+    override fun getAll_(): Flow<PagingData<Story>> {
         return Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = StoriesRemoteMediator(),

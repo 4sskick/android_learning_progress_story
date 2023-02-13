@@ -3,12 +3,15 @@ package id.niteroomcreation.learningprogressstory.presenter.feature.main.stories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import id.niteroomcreation.learningprogressstory.data.repository.StoriesRepositoryImpl
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.domain.service.Dispatcher
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 /**
@@ -37,5 +40,9 @@ class StoriesViewModel(
             val result = storiesRepository.getAll()
             storiesResult_.postValue(result)
         }
+    }
+
+    fun getStories_():Flow<PagingData<Story>>{
+         return storiesRepository.getAll_().cachedIn(viewModelScope)
     }
 }

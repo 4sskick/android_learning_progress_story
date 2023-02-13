@@ -7,15 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
-import id.niteroomcreation.learningprogressstory.util.LogHelper
 import id.niteroomcreation.learningprogressstory.util.NavUtil
 import id.niteroomcreation.learningprogressstory.util.PrefKey
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * Created by Septian Adi Wijaya on 24/01/2023.
@@ -29,6 +33,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
 
     private lateinit var binding: FStoriesBinding
     private lateinit var adapter: StoriesAdapter
+    private lateinit var adapterPaging: StoriesAdapterPaging
 
 
     override fun onInflateView(
@@ -51,14 +56,25 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
             )
             }
         }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            mViewModel.getStories_()
+                .collectLatest { value: PagingData<Story> ->
+                    adapterPaging.submitData(value)
+                }
+        }
     }
 
     private fun setupAdapter() {
 
         adapter = StoriesAdapter(emptyList())
+        adapterPaging = StoriesAdapterPaging()
 
         binding.storiesRv.layoutManager = LinearLayoutManager(context)
-        binding.storiesRv.adapter = adapter
+        binding.storiesRv.adapter = adapterPaging
+
+
     }
 
     override fun setupObserver() {
