@@ -10,10 +10,10 @@ import org.mockito.junit.MockitoJUnitRunner
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-//@RunWith(MockitoJUnitRunner::class)
+@RunWith(MockitoJUnitRunner::class)
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun `addition_isCorrect`() {
         assertEquals(4, 2 + 2)
     }
 }

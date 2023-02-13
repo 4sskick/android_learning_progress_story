@@ -34,6 +34,14 @@ interface APIService {
     suspend fun getStories(
     ): Response<StoriesResponse>
 
+    @GET("stories")
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    suspend fun getStories(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("location") location: Int,
+    ): Response<StoriesResponse>
+
     @Multipart
     @POST("stories")
     suspend fun createStory(

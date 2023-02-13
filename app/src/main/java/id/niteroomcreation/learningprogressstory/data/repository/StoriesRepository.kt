@@ -1,9 +1,17 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import id.niteroomcreation.learningprogressstory.data.datasource.StoriesDataSource
+import id.niteroomcreation.learningprogressstory.data.paging.StoriesRemoteMediator
+import id.niteroomcreation.learningprogressstory.data.paging.StoryPagingSource
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.CreateStoryResponse
 import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
+import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
+import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -12,6 +20,15 @@ import okhttp3.RequestBody
  * please be sure to add credential if you use people's code
  */
 class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepositoryImpl {
+
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getAll_(): Flow<PagingData<Story>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            remoteMediator = StoriesRemoteMediator(),
+            pagingSourceFactory = { StoryPagingSource() }
+        ).flow
+    }
 
     override suspend fun getAll(): Resource<StoriesResponse> {
         return dataSource.getAll()

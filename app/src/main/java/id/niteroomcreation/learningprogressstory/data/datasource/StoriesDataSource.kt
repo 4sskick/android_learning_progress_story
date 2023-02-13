@@ -14,6 +14,7 @@ import java.io.IOException
  * please be sure to add credential if you use people's code
  */
 class StoriesDataSource : StoriesRepositoryImpl {
+
     override suspend fun getAll(): Resource<StoriesResponse> = try {
         val response = APIConfig.getApi().getStories()
         val result = response.body()
