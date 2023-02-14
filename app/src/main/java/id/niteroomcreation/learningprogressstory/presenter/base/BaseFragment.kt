@@ -66,6 +66,14 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IBaseView {
         get() = activity.prefApp
 
 
+    override fun showEmptyState() {
+        activity.showEmptyState()
+    }
+
+    override fun dismissEmptyState() {
+        activity.dismissEmptyState()
+    }
+
     override fun showLoading(title: String?, desc: String?) {
         activity.showLoading(title, desc)
     }

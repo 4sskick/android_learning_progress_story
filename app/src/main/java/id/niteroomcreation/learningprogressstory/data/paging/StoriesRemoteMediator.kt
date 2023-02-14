@@ -17,6 +17,28 @@ class StoriesRemoteMediator() : RemoteMediator<Int, Story>() {
         loadType: LoadType,
         state: PagingState<Int, Story>
     ): MediatorResult {
+
+        val page = when(loadType){
+            LoadType.REFRESH -> {
+                val remoteKeys = state.anchorPosition?.let { position->
+                    state.closestItemToPosition(position)?.id?.let { id->
+
+                    }
+                }
+            }
+            LoadType.PREPEND -> {
+
+            }
+            LoadType.APPEND -> {
+
+            }
+        }
+
+
         return MediatorResult.Error(RuntimeException())
+    }
+
+    private companion object {
+        const val INITIAL_PAGE_INDEX = 1
     }
 }

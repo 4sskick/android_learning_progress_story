@@ -6,18 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
-import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
-import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.StoriesViewModel
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
-import id.niteroomcreation.learningprogressstory.util.NavUtil
-import id.niteroomcreation.learningprogressstory.util.PrefKey
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -32,8 +30,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
     }
 
     private lateinit var binding: FStoriesBinding
-    private lateinit var adapter: StoriesAdapter
-    private lateinit var adapterPaging: StoriesAdapterPaging
+    private lateinit var adapter: StoriesAdapterPaging
 
 
     override fun onInflateView(
@@ -57,22 +54,34 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
             }
         }
 
-
         viewLifecycleOwner.lifecycleScope.launch {
-            mViewModel.getStories_()
+            adapter.addLoadStateListener { cLoadState: CombinedLoadStates ->
+                if (cLoadState.refresh is LoadState.Loading)
+                    showLoading()
+                else if (cLoadState.refresh is LoadState.Error) {
+                    showLoading()
+                    showMessage(R.string.info_failed_request)
+                    dismissLoading()
+
+                    if (adapter.itemCount == 0)
+                        showEmptyState()
+                } else if (cLoadState.refresh is LoadState.NotLoading)
+                    dismissLoading()
+            }
+
+            mViewModel.getStories()
                 .collectLatest { value: PagingData<Story> ->
-                    adapterPaging.submitData(value)
+                    adapter.submitData(value)
                 }
         }
     }
 
     private fun setupAdapter() {
 
-        adapter = StoriesAdapter(emptyList())
-        adapterPaging = StoriesAdapterPaging()
+        adapter = StoriesAdapterPaging()
 
         binding.storiesRv.layoutManager = LinearLayoutManager(context)
-        binding.storiesRv.adapter = adapterPaging
+        binding.storiesRv.adapter = adapter
 
 
     }
@@ -80,32 +89,32 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, StoriesViewModel::class.java)
 
-        mViewModel.storiesResult.observe(this, Observer {
-            when (it) {
-                is Resource.Loading -> showLoading()
-                is Resource.Error -> {
-                    dismissLoading()
-
-                    if (it.exception?.message != null) {
-                        showMessage(it.exception.message)
-
-                        if (!prefApp.getBoolean(PrefKey.LOGIN_FLAG)) {
-                            NavUtil.gotoAuth(requireActivity())
-                        }
-                    } else
-                        showMessage(it.message)
-                }
-                is Resource.Success -> {
-                    dismissLoading()
-
-                    if (it.data.listStory.isEmpty())
-                        showMessage("Data kosong tidak ditemukan")
-                    else
-                        adapter.update(it.data.listStory)
-                }
-            }
-
-        })
+//        mViewModel.storiesResult.observe(this, Observer {
+//            when (it) {
+//                is Resource.Loading -> showLoading()
+//                is Resource.Error -> {
+//                    dismissLoading()
+//
+//                    if (it.exception?.message != null) {
+//                        showMessage(it.exception.message)
+//
+//                        if (!prefApp.getBoolean(PrefKey.LOGIN_FLAG)) {
+//                            NavUtil.gotoAuth(requireActivity())
+//                        }
+//                    } else
+//                        showMessage(it.message)
+//                }
+//                is Resource.Success -> {
+//                    dismissLoading()
+//
+//                    if (it.data.listStory.isEmpty())
+//                        showMessage("Data kosong tidak ditemukan")
+//                    else
+//                        adapter.update(it.data.listStory)
+//                }
+//            }
+//
+//        })
 
     }
 }

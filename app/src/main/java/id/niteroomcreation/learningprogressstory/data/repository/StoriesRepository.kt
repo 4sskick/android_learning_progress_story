@@ -25,7 +25,7 @@ class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepo
     override fun getAll_(): Flow<PagingData<Story>> {
         return Pager(
             config = PagingConfig(pageSize = 5),
-            remoteMediator = StoriesRemoteMediator(),
+//            remoteMediator = StoriesRemoteMediator(),
             pagingSourceFactory = { StoryPagingSource() }
         ).flow
     }

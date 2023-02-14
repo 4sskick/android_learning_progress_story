@@ -19,6 +19,7 @@
     <string name="info_failed_username">"Username tidak valid"</string>
     <string name="info_failed_password">"Password tidak valid"</string>
     <string name="info_cant_empty">Tidak boleh kosong</string>
+    <string name="info_empty">Data Kosong</string>
     <string name="info_register_succeed">Pendaftaran berhasil</string>
 
     <string name="lbl_login">Masuk</string>
@@ -46,5 +47,6 @@
     <string name="lbl_camera">Kamera</string>
     <string name="lbl_gallery">Galeri</string>
     <string name="lbl_create">Buat</string>
+    <string name="info_failed_request">Terjadi kesalahan, request data gagal</string>
 
 </resources>

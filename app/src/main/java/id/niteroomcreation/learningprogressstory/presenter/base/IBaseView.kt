@@ -3,6 +3,7 @@ package id.niteroomcreation.learningprogressstory.presenter.base
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
@@ -41,6 +42,10 @@ interface IBaseView {
     fun destroyUI() {
 
     }
+
+    fun showEmptyState()
+
+    fun dismissEmptyState()
 
     fun showLoading(title: String?, desc: String?)
 

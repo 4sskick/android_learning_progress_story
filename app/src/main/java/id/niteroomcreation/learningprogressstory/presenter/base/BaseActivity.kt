@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import id.niteroomcreation.learningprogressstory.R
@@ -25,6 +26,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     private lateinit var toast: Toast
     private lateinit var progressLoading: Dialog
+    private lateinit var emptyLayout: Dialog
     private lateinit var context: Context
     private lateinit var binding: BActivityBinding
 
@@ -42,6 +44,9 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
         context = this
         progressLoading = CLoadingDialog.progressDialog(context)
+        emptyLayout = CLoadingDialog.progressEmptyDialog(context) {
+//            emptyLayout.dismiss()
+        }
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
 
         initPref()
@@ -69,6 +74,21 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     fun getActContext(): Context {
         return context
+    }
+
+    override fun showEmptyState() {
+        emptyLayout.setTitle(if (title == null) title else this.resources.getString(R.string.info_loading_title))
+        emptyLayout.setCancelable(false)
+        emptyLayout.setCanceledOnTouchOutside(false)
+
+        if (!emptyLayout.isShowing) {
+            runOnUiThread { emptyLayout.show() }
+        }
+    }
+
+    override fun dismissEmptyState() {
+        if (emptyLayout.isShowing)
+            runOnUiThread { emptyLayout.dismiss() }
     }
 
     override fun showLoading(title: String?, desc: String?) {

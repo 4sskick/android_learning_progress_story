@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
+import android.widget.RelativeLayout
 import id.niteroomcreation.learningprogressstory.R
 
 /**
@@ -27,5 +29,21 @@ class CLoadingDialog {
 
             return dialog
         }
+
+        fun progressEmptyDialog(context: Context, listener: OnClickListener?): Dialog {
+            dialog = Dialog(context)
+            val inflate = LayoutInflater.from(context).inflate(R.layout.c_empty, null)
+
+            dialog.setContentView(inflate)
+
+            val parent: RelativeLayout = dialog.findViewById(R.id.empty_parent_layout)
+            parent.setOnClickListener {
+                listener?.onClick(it)
+            }
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            return dialog
+        }
     }
+
 }

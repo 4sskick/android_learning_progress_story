@@ -42,4 +42,6 @@
     <string name="lbl_gallery">Gallery</string>
     <string name="lbl_create">Create</string>
     <string name="info_register_succeed">Register succeed</string>
+    <string name="info_failed_request">Error happened, failed to request data</string>
+    <string name="info_empty">Data Empty</string>
 </resources>
