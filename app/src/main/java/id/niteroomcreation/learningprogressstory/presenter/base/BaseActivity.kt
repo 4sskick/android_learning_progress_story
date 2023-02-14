@@ -45,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         context = this
         progressLoading = CLoadingDialog.progressDialog(context)
         emptyLayout = CLoadingDialog.progressEmptyDialog(context) {
-//            emptyLayout.dismiss()
+            emptyLayout.dismiss()
         }
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
 
@@ -78,8 +78,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     override fun showEmptyState() {
         emptyLayout.setTitle(if (title == null) title else this.resources.getString(R.string.info_loading_title))
-        emptyLayout.setCancelable(false)
-        emptyLayout.setCanceledOnTouchOutside(false)
+//        emptyLayout.setCancelable(false)
+//        emptyLayout.setCanceledOnTouchOutside(false)
 
         if (!emptyLayout.isShowing) {
             runOnUiThread { emptyLayout.show() }

@@ -12,8 +12,16 @@
         tools:layout="@layout/f_stories" />
 
     <fragment
+        android:id="@+id/nav_map"
+        android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.map.MapFragment"
+        android:label="map"
+        tools:layout="@layout/f_map" />
+
+    <fragment
         android:id="@+id/nav_profile"
         android:name="id.niteroomcreation.learningprogressstory.presenter.feature.main.profile.ProfileFragment"
         android:label="profile"
         tools:layout="@layout/f_profile" />
+
+
 </navigation>

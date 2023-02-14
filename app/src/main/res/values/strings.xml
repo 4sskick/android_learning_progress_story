@@ -48,5 +48,6 @@
     <string name="lbl_gallery">Galeri</string>
     <string name="lbl_create">Buat</string>
     <string name="info_failed_request">Terjadi kesalahan, request data gagal</string>
+    <string name="lbl_map">Peta</string>
 
 </resources>

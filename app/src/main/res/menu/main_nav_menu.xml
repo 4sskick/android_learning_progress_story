@@ -7,8 +7,14 @@
         android:title="@string/lbl_story" />
 
     <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/lbl_map" />
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person"
         android:title="@string/lbl_profile" />
+
 
 </menu>
