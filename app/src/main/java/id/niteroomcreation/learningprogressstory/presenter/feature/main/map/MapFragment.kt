@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FMapBinding
@@ -60,6 +61,30 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
                 .title("Marker in dummyLocation")
         )
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dummyLocation, 15f))
+
+
+        setupStyleMap()
+        setupLocationStoryMap()
+    }
+
+    private fun setupStyleMap() {
+        try {
+            val success = mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.map_style
+                )
+            )
+
+            if (!success)
+                showMessage("Error set style from json")
+//            mMap.mapType = GoogleMap
+        } catch (e: Exception) {
+            showMessage("Error")
+        }
+    }
+
+    private fun setupLocationStoryMap() {
 
     }
 }
