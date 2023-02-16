@@ -31,6 +31,26 @@ class StoriesDataSource : StoriesRepositoryImpl {
         Resource.Error("An error happen", IOException(e))
     }
 
+    override suspend fun getAllWithLocation(): Resource<StoriesResponse> = try {
+        val response = APIConfig.getApi().getStories(
+            page = 1,
+            size = 100,
+            location = 1
+        )
+        val result = response.body()
+
+        if (response.isSuccessful && result != null)
+            if (result.error)
+                Resource.Error(result.message, null)
+            else
+                Resource.Success(result)
+        else
+            Resource.Error(response.errorBody()!!.string(), IOException(response.message()))
+
+    } catch (e: Exception) {
+        Resource.Error("An error happen", IOException(e))
+    }
+
     override suspend fun getDetailById(): Resource<StoriesResponse> {
         val response = APIConfig.getApi().getStories()
 

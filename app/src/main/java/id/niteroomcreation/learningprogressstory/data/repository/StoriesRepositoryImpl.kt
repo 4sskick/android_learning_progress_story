@@ -22,6 +22,8 @@ interface StoriesRepositoryImpl {
 
     suspend fun getAll(): Resource<StoriesResponse>
 
+    suspend fun getAllWithLocation():Resource<StoriesResponse>
+
     suspend fun getDetailById():Resource<StoriesResponse>
 
     suspend fun postStory(imageFile: MultipartBody.Part, desc: RequestBody):Resource<CreateStoryResponse>

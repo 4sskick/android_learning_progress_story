@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FMapBinding
+import id.niteroomcreation.learningprogressstory.domain.model.Resource
+import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.util.Constants
+import id.niteroomcreation.learningprogressstory.util.LogHelper
 
 /**
  * Created by Septian Adi Wijaya on 15/02/2023.
@@ -23,7 +28,9 @@ import id.niteroomcreation.learningprogressstory.util.Constants
 class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
 
     private lateinit var binding: FMapBinding
+
     private lateinit var mMap: GoogleMap
+    private val boundsBuilder = LatLngBounds.Builder()
 
     override fun onInflateView(
         inflater: LayoutInflater,
@@ -43,7 +50,25 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
     }
 
     override fun setupObserver() {
+        mViewModel = obtainViewModel(this, MapViewModel::class.java)
+        mViewModel.storiesResult.observe(this, Observer {
+            when (it) {
+                is Resource.Error -> {
+                    dismissLoading()
+                    showMessage(it.message)
+                }
+                is Resource.Loading -> {
+                    LogHelper.j(TAG, "loading kannnnn>?????")
+                    showLoading()
+                }
+                is Resource.Success -> {
+                    dismissLoading()
+                    LogHelper.j(TAG, it)
 
+                    setupMarker(it.data)
+                }
+            }
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -60,11 +85,28 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
                 .position(dummyLocation)
                 .title("Marker in dummyLocation")
         )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dummyLocation, 15f))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dummyLocation, 5f))
 
 
         setupStyleMap()
         setupLocationStoryMap()
+    }
+
+    private fun setupMarker(data: StoriesResponse) {
+        data.listStory.forEach { story ->
+            val latLng = LatLng(story.lat.toDouble(), story.lon.toDouble())
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(story.createdAt)
+                    .snippet(
+                        StringBuilder("created: ")
+                            .append(story.createdAt.subSequence(11, 16).toString())
+                            .toString()
+                    )
+            )
+            boundsBuilder.include(latLng)
+        }
     }
 
     private fun setupStyleMap() {
@@ -85,6 +127,6 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
     }
 
     private fun setupLocationStoryMap() {
-
+        mViewModel.getStoriesWithLocation()
     }
 }
