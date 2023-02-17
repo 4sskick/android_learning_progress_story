@@ -17,7 +17,7 @@ data class LoginResponse(
     val message: String,
 
     @field:SerializedName("loginResult")
-    val loginResult: LoginResultResponse
+    val loginResult: LoginResultResponse? = null
 ) : Parcelable
 
 @Parcelize

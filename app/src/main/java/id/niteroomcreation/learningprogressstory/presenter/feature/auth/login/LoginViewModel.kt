@@ -16,7 +16,7 @@ class LoginViewModel(
 ) : BaseViewModel() {
 
     private val _loginResult = MutableLiveData<Resource<LoginResponse>>()
-    val loginResult: LiveData<Resource<LoginResponse>> = _loginResult
+    val loginResult: MutableLiveData<Resource<LoginResponse>> = _loginResult
 
     fun login(email: String, password: String) {
 

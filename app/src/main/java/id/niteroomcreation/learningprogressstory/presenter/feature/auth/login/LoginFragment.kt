@@ -92,9 +92,9 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
                 is Resource.Success -> {
                     dismissLoading()
 
-                    prefUser.setString(PrefKey.LOGIN_TOKEN, it.data.loginResult.token)
-                    prefUser.setString(PrefKey.LOGIN_USERID, it.data.loginResult.userId)
-                    prefUser.setString(PrefKey.LOGIN_NAME, it.data.loginResult.name)
+                    prefUser.setString(PrefKey.LOGIN_TOKEN, it.data.loginResult?.token)
+                    prefUser.setString(PrefKey.LOGIN_USERID, it.data.loginResult?.userId)
+                    prefUser.setString(PrefKey.LOGIN_NAME, it.data.loginResult?.name)
                     prefApp.setBoolean(PrefKey.LOGIN_FLAG, true)
 
                     listener.onLoginOperation()
