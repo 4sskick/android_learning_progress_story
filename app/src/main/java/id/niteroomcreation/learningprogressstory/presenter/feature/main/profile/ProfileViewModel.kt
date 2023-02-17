@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  */
 class ProfileViewModel(
     private val profileRepository: ProfileRepositoryImpl,
-    private val dispatcher: Dispatcher
+//    private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
     companion object {
@@ -31,7 +31,7 @@ class ProfileViewModel(
 
     private fun fetchProfile() {
         profileResult_.value = Resource.Loading
-        viewModelScope.launch(dispatcher.io) {
+        viewModelScope.launch {
             val result = profileRepository.profileData()
             profileResult_.postValue(result)
         }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  */
 class RegisterViewModel(
     private val registerRepository: RegisterRepositoryImpl,
-    private val dispatcher: Dispatcher
+//    private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
     companion object {
@@ -27,7 +27,7 @@ class RegisterViewModel(
 
     fun register(name: String, email: String, password: String, passwordConfirm: String) {
         _registerResult.value = Resource.Loading
-        viewModelScope.launch(dispatcher.io) {
+        viewModelScope.launch {
             val result = registerRepository.register(name, email, password, passwordConfirm)
             _registerResult.postValue(result)
         }

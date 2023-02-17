@@ -39,32 +39,32 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java))
             return LoginViewModel(
                 loginRepository = Injection.provideLoginRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(RegisterViewModel::class.java))
             return RegisterViewModel(
                 registerRepository = Injection.provideRegisterRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(StoriesViewModel::class.java))
             return StoriesViewModel(
                 storiesRepository = Injection.provideStoriesRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(ProfileViewModel::class.java))
             return ProfileViewModel(
                 profileRepository = Injection.provideProfileRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(StoryCreateViewModel::class.java))
             return StoryCreateViewModel(
                 storiesRepository = Injection.provideStoriesRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
         else if (modelClass.isAssignableFrom(MapViewModel::class.java))
             return MapViewModel(
                 storiesRepository = Injection.provideStoriesRepository(),
-                dispatcher = Injection.provideDispatcher()
+//                dispatcher = Injection.provideDispatcher()
             ) as T
 
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")

@@ -22,7 +22,7 @@ import java.io.File
  */
 class StoryCreateViewModel(
     private val storiesRepository: StoriesRepositoryImpl,
-    private val dispatcher: Dispatcher
+//    private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
     companion object {
@@ -35,7 +35,7 @@ class StoryCreateViewModel(
     fun postStory(imageFile: File, desc: String) {
 
         responseResult_.value = Resource.Loading
-        viewModelScope.launch(dispatcher.io) {
+        viewModelScope.launch {
             //processing image to reduce size file
             val fileReduced = reduceFileImage(imageFile)
 

@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  */
 class MapViewModel(
     private val storiesRepository: StoriesRepositoryImpl,
-    private val dispatcher: Dispatcher
+//    private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
     companion object {
@@ -27,7 +27,7 @@ class MapViewModel(
 
     fun getStoriesWithLocation() {
         storiesResult_.value = Resource.Loading
-        viewModelScope.launch(dispatcher.io) {
+        viewModelScope.launch {
             val result = storiesRepository.getAllWithLocation()
             storiesResult_.postValue(result)
         }

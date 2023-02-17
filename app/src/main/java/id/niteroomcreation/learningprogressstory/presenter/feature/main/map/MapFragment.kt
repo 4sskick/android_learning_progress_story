@@ -58,7 +58,6 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
                     showMessage(it.message)
                 }
                 is Resource.Loading -> {
-                    LogHelper.j(TAG, "loading kannnnn>?????")
                     showLoading()
                 }
                 is Resource.Success -> {

@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
  */
 class StoriesViewModel(
     private val storiesRepository: StoriesRepositoryImpl,
-    private val dispatcher: Dispatcher
+//    private val dispatcher: Dispatcher
 ) : BaseViewModel() {
 
     companion object {
