@@ -57,7 +57,7 @@ class MapViewModelTest {
 
     @Test
     fun `get story not null & error`() = runTest {
-        val expect = Resource.Success(DataDummy.generateErrorDummyStory())
+        val expect = Resource.Error(DataDummy.generateErrorDummyStory().message, null)
 
         `when`(storyRepository.getAllWithLocation()).thenReturn(expect)
         mapViewModel.getStoriesWithLocation()
