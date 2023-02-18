@@ -4,6 +4,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginRe
 import id.niteroomcreation.learningprogressstory.domain.model.auth.login.LoginResultResponse
 import id.niteroomcreation.learningprogressstory.domain.model.auth.register.RegisterResponse
 import id.niteroomcreation.learningprogressstory.domain.model.stories.CreateStoryResponse
+import id.niteroomcreation.learningprogressstory.domain.model.stories.StoriesResponse
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 
 /**
@@ -58,40 +59,40 @@ object DataDummy {
         )
     }
 
-//    fun generateDummyStory(): StoryResponse {
-//        return StoryResponse(
-//            error = false,
-//            message = "success",
-//            listStory = arrayListOf(
-//                Story(
-//                    id = "id",
-//                    name = "name",
-//                    description = "description",
-//                    photoUrl = "photoUrl",
-//                    createdAt = "createdAt",
-//                    lat = 0.01,
-//                    lon = 0.01
-//                )
-//            )
-//        )
-//    }
-//
-//    fun generateErrorDummyStory(): StoryResponse {
-//        return StoryResponse(
-//            error = true,
-//            message = "error",
-//            listStory = arrayListOf(
-//                Story(
-//                    id = "id",
-//                    name = "name",
-//                    description = "description",
-//                    photoUrl = "photoUrl",
-//                    createdAt = "createdAt",
-//                    lat = 0.01,
-//                    lon = 0.01
-//                )
-//            )
-//        )
-//    }
+    fun generateDummyStory(): StoriesResponse {
+        return StoriesResponse(
+            error = false,
+            message = "success",
+            listStory = arrayListOf(
+                Story(
+                    id = "id",
+                    name = "name",
+                    description = "description",
+                    photoUrl = "photoUrl",
+                    createdAt = "createdAt",
+                    lat = 0.01f,
+                    lon = 0.01f
+                )
+            )
+        )
+    }
+
+    fun generateErrorDummyStory(): StoriesResponse {
+        return StoriesResponse(
+            error = true,
+            message = "error",
+            listStory = arrayListOf(
+                Story(
+                    id = "id",
+                    name = "name",
+                    description = "description",
+                    photoUrl = "photoUrl",
+                    createdAt = "createdAt",
+                    lat = 0.01f,
+                    lon = 0.01f
+                )
+            )
+        )
+    }
 }
 
