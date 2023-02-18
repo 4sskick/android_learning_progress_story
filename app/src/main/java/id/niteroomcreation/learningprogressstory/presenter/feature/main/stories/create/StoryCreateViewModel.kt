@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -32,24 +33,32 @@ class StoryCreateViewModel(
     private val responseResult_ = MutableLiveData<Resource<CreateStoryResponse>>()
     val responseResult = responseResult_
 
-    fun postStory(imageFile: File, desc: String) {
+    fun prepareBody(desc:String):RequestBody{
+        return desc.toRequestBody("text/plain".toMediaType())
+    }
+
+    fun prepareBodyImage(imageFile: File):MultipartBody.Part{
+
+//        processing image to reduce size file
+            val fileReduced = reduceFileImage(imageFile)
+
+//        prepare for body
+
+            val file = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData(
+                    "photo",
+                    imageFile.name,
+                    file
+                )
+    }
+
+//    fun postStory(imageFile: File, desc: String) {
+    fun postStory(imageFile: MultipartBody.Part, desc: RequestBody) {
 
         responseResult_.value = Resource.Loading
         viewModelScope.launch {
-            //processing image to reduce size file
-            val fileReduced = reduceFileImage(imageFile)
 
-            //prepare for body
-            val desc = desc.toRequestBody("text/plain".toMediaType())
-            val file = fileReduced.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageMultipart: MultipartBody.Part =
-                MultipartBody.Part.createFormData(
-                    "photo",
-                    fileReduced.name,
-                    file
-                )
-
-            val result = storiesRepository.postStory(imageMultipart, desc)
+            val result = storiesRepository.postStory(imageFile, desc)
             responseResult_.postValue(result)
         }
     }

@@ -70,8 +70,9 @@ class StoryCreateActivity : BaseActivity() {
             }
 
             mViewModel.postStory(
-                imageFile = currentSelectedImage!!,
-                desc = binding.storyCreateDescEdit.text.toString()
+//                imageFile = currentSelectedImage!!,
+                imageFile = mViewModel.prepareBodyImage(reduceFileImage(currentSelectedImage!!)),
+                desc = mViewModel.prepareBody(binding.storyCreateDescEdit.text.toString())
             )
         }
     }

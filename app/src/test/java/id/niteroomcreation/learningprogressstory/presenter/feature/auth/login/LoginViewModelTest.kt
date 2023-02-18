@@ -66,6 +66,7 @@ class LoginViewModelTest {
         Assert.assertNotNull(actual)
         //and value is equal
         Assert.assertEquals(expect, actual)
+        Assert.assertTrue(actual is Resource.Success)
     }
 
     @Test
@@ -85,5 +86,6 @@ class LoginViewModelTest {
         Mockito.verify(repository).login(email, pass)
         Assert.assertNotNull(actual)
         Assert.assertEquals(expect, actual)
+        Assert.assertTrue(actual is Resource.Error)
     }
 }

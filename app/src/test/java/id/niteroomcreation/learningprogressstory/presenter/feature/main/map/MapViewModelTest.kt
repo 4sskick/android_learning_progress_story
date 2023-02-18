@@ -52,6 +52,7 @@ class MapViewModelTest {
         Mockito.verify(storyRepository).getAllWithLocation()
         Assert.assertNotNull(actual)
         Assert.assertEquals(expect, actual)
+        Assert.assertTrue(actual is Resource.Success)
     }
 
     @Test
@@ -66,5 +67,6 @@ class MapViewModelTest {
         Mockito.verify(storyRepository).getAllWithLocation()
         Assert.assertNotNull(actual)
         Assert.assertEquals(expect, actual)
+        Assert.assertTrue(actual is Resource.Error)
     }
 }
