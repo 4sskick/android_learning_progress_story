@@ -31,7 +31,6 @@ class LoginViewModelTest {
 
     private val email = ""
     private val pass = "123123123"
-    private var dummyLoginResponse = DataDummy.generateDummyLoginSuccess()
 
     @Mock
     private lateinit var repository: LoginRepository
@@ -49,7 +48,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `not null and return success`() = runTest {
+    fun `login not null and return success`() = runTest {
 
         val expect = Resource.Success(DataDummy.generateDummyLoginSuccess())
 
@@ -70,7 +69,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `not null and return error`() = runTest {
+    fun `login not null and return error`() = runTest {
 
         val expect = Resource.Error(DataDummy.generateDummyLoginError().message, null)
 
