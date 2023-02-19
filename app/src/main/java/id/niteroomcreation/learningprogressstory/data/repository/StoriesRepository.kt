@@ -1,9 +1,7 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.lifecycle.LiveData
+import androidx.paging.*
 import id.niteroomcreation.learningprogressstory.data.datasource.StoriesDataSource
 import id.niteroomcreation.learningprogressstory.data.paging.StoriesRemoteMediator
 import id.niteroomcreation.learningprogressstory.data.paging.StoryPagingSource
@@ -22,12 +20,12 @@ import okhttp3.RequestBody
 class StoriesRepository(private val dataSource: StoriesDataSource) : StoriesRepositoryImpl {
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun getAll_(): Flow<PagingData<Story>> {
+    override fun getAll_(): LiveData<PagingData<Story>> {
         return Pager(
             config = PagingConfig(pageSize = 5),
 //            remoteMediator = StoriesRemoteMediator(),
             pagingSourceFactory = { StoryPagingSource() }
-        ).flow
+        ).liveData
     }
 
     override suspend fun getAll(): Resource<StoriesResponse> {

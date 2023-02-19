@@ -24,22 +24,23 @@ import id.niteroomcreation.learningprogressstory.util.dateFormatted
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoryDiffCallback() : DiffUtil.ItemCallback<Story>() {
-    override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
-        return oldItem == newItem
-    }
-}
-
 class StoriesAdapterPaging() :
-    PagingDataAdapter<Story, StoriesAdapterPaging.ViewHolder>(StoryDiffCallback()) {
+    PagingDataAdapter<Story, StoriesAdapterPaging.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         val TAG = StoriesAdapterPaging::class.java.simpleName
+
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
+
 
     class ViewHolder(binding: IStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
         var image: ImageView = binding.iImage

@@ -1,5 +1,7 @@
 package id.niteroomcreation.learningprogressstory.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
 import id.niteroomcreation.learningprogressstory.domain.model.Resource
 import id.niteroomcreation.learningprogressstory.domain.model.stories.CreateStoryResponse
@@ -16,8 +18,8 @@ import okhttp3.RequestBody
  */
 interface StoriesRepositoryImpl {
 
-    fun getAll_(): Flow<PagingData<Story>> {
-        return emptyFlow()
+    fun getAll_(): LiveData<PagingData<Story>> {
+        return MutableLiveData()
     }
 
     suspend fun getAll(): Resource<StoriesResponse>

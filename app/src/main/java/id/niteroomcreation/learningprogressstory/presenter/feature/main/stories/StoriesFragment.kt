@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.niteroomcreation.learningprogressstory.R
 import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
-import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.paging_footer.StoriesFooterAdapter
-import kotlinx.coroutines.flow.collectLatest
+import id.niteroomcreation.learningprogressstory.util.LogHelper
 import kotlinx.coroutines.launch
 
 /**
@@ -70,10 +69,29 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
                     dismissLoading()
             }
 
-            mViewModel.getStories()
-                .collectLatest { value: PagingData<Story> ->
-                    adapter.submitData(value)
+
+//            mViewModel.storiesResult.observe(viewLifecycleOwner, Observer {
+//                LogHelper.j(TAG, it)
+//
+//                if (it != null)
+//                    lifecycleScope.launch {
+//                        adapter.submitData(it)
+//                    }
+//            })
+
+            mViewModel.getStories().observe(viewLifecycleOwner, Observer {
+
+                LogHelper.j(TAG, it)
+
+                lifecycleScope.launch {
+                    adapter.submitData(it)
                 }
+            })
+
+//            mViewModel.getStories()
+//                .collectLatest { value: PagingData<Story> ->
+//                    adapter.submitData(value)
+//                }
         }
     }
 
