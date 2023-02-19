@@ -16,6 +16,7 @@ import id.niteroomcreation.learningprogressstory.databinding.FStoriesBinding
 import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
 import id.niteroomcreation.learningprogressstory.presenter.base.BaseFragment
 import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.create.StoryCreateActivity
+import id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.paging_footer.StoriesFooterAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -81,7 +82,7 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
         adapter = StoriesAdapterPaging()
 
         binding.storiesRv.layoutManager = LinearLayoutManager(context)
-        binding.storiesRv.adapter = adapter
+        binding.storiesRv.adapter = adapter.withLoadStateFooter(StoriesFooterAdapter())
 
 
     }

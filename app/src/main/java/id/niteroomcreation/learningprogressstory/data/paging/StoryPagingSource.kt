@@ -30,8 +30,8 @@ class StoryPagingSource : PagingSource<Int, Story>() {
             if (response.isSuccessful) {
                 LoadResult.Page(
                     data = response.body()?.listStory ?: emptyList(),
-                    prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1,
-                    nextKey = if (response.body()?.listStory.isNullOrEmpty()) null else page + 1
+                    prevKey = if (page == INITIAL_PAGE_INDEX) null else page.minus(1),
+                    nextKey = if (response.body()?.listStory.isNullOrEmpty()) null else page.plus(1)
                 )
             } else
                 LoadResult.Error(Exception("Failed load story"))

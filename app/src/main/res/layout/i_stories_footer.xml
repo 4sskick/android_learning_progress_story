@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="footerUiState"
+            type="id.niteroomcreation.learningprogressstory.presenter.feature.main.stories.paging_footer.FooterUiState" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/i_footer_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp">
+
+        <include
+            android:id="@+id/i_footer_loading"
+            layout="@layout/c_loading"
+            android:visibility="@{footerUiState.loadingVisibility}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
