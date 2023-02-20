@@ -69,16 +69,6 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
                     dismissLoading()
             }
 
-
-//            mViewModel.storiesResult.observe(viewLifecycleOwner, Observer {
-//                LogHelper.j(TAG, it)
-//
-//                if (it != null)
-//                    lifecycleScope.launch {
-//                        adapter.submitData(it)
-//                    }
-//            })
-
             mViewModel.getStories().observe(viewLifecycleOwner, Observer {
 
                 LogHelper.j(TAG, it)
@@ -87,11 +77,6 @@ class StoriesFragment : BaseFragment<StoriesViewModel>() {
                     adapter.submitData(it)
                 }
             })
-
-//            mViewModel.getStories()
-//                .collectLatest { value: PagingData<Story> ->
-//                    adapter.submitData(value)
-//                }
         }
     }
 

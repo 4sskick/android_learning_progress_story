@@ -72,6 +72,28 @@ class StoriesViewModelTest {
         Assert.assertEquals(DataDummy.generateDummyStory().listStory.size, differ.snapshot().size)
         Assert.assertEquals(DataDummy.generateDummyStory().listStory[0].name, differ.snapshot()[0]?.name)
     }
+
+    @Test
+    fun `get stories empty & return zero`() = runTest{
+        val data:PagingData<Story> = StoriesPagingSource.snapshot(listOf())
+        val expect = MutableLiveData<PagingData<Story>>()
+
+        expect.value = data
+        `when`(storyRepository.getAll_()).thenReturn(expect)
+
+        val actual:PagingData<Story> = storiesViewModel.getStories().getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoriesAdapterPaging.DIFF_CALLBACK,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = Dispatchers.Main
+        )
+
+        differ.submitData(actual)
+
+        Assert.assertEquals(0, differ.snapshot().size)
+    }
+
 }
 
 val noopListUpdateCallback = object : ListUpdateCallback {
@@ -88,12 +110,6 @@ class StoriesPagingSource : PagingSource<Int, List<Story>>() {
             return PagingData.from(items)
         }
     }
-    var stories: List<Story> = emptyList()
-        set(value) {
-            println("set")
-            field = value
-            invalidate()
-        }
 
     override fun getRefreshKey(state: PagingState<Int, List<Story>>): Int? {
         return 0

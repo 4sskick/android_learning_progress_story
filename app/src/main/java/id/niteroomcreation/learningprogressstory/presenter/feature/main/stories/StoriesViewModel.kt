@@ -26,31 +26,7 @@ class StoriesViewModel(
         val TAG = StoriesViewModel::class.java.simpleName
     }
 
-    private val storiesResult_ = MutableLiveData<PagingData<Story>>()
-    val storiesResult = storiesResult_
-
-////    init {
-////        getStories()
-////    }
-//
-//    /*private*/ fun getStories() {
-////        storiesResult_.value = Resource.Loading
-//        viewModelScope.launch {
-//            val result = storiesRepository.getAll_().cachedIn(viewModelScope).asLiveData()
-//
-//            viewModelScope.launch {
-//
-//                storiesResult_.postValue(result.value)
-//            }
-//        }
-//    }
-
     fun getStories(): LiveData<PagingData<Story>> {
         return storiesRepository.getAll_().cachedIn(viewModelScope)
-//        viewModelScope.launch {
-//
-//            val response = storiesRepository.getAll_().cachedIn(this).asLiveData()
-//            storiesResult_.postValue(response.value)
-//        }
     }
 }
