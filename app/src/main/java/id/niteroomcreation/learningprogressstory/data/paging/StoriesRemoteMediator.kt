@@ -12,7 +12,7 @@ import id.niteroomcreation.learningprogressstory.domain.model.stories.Story
  * please be sure to add credential if you use people's code
  */
 @OptIn(ExperimentalPagingApi::class)
-class StoriesRemoteMediator() : RemoteMediator<Int, Story>() {
+class StoriesRemoteMediator : RemoteMediator<Int, Story>() {
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, Story>

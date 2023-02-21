@@ -24,7 +24,7 @@ import id.niteroomcreation.learningprogressstory.util.dateFormatted
  * Created by Septian Adi Wijaya on 26/01/2023.
  * please be sure to add credential if you use people's code
  */
-class StoriesAdapterPaging() :
+class StoriesAdapterPaging :
     PagingDataAdapter<Story, StoriesAdapterPaging.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {

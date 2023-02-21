@@ -70,7 +70,7 @@ class StoriesViewModelTest {
         Assert.assertNotNull(differ.snapshot())
         Assert.assertEquals(DataDummy.generateDummyStory().listStory, differ.snapshot())
         Assert.assertEquals(DataDummy.generateDummyStory().listStory.size, differ.snapshot().size)
-        Assert.assertEquals(DataDummy.generateDummyStory().listStory[0].name, differ.snapshot()[0]?.name)
+        Assert.assertEquals(DataDummy.generateDummyStory().listStory[0], differ.snapshot()[0])
     }
 
     @Test

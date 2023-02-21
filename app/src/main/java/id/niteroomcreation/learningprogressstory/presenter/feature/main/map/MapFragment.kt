@@ -29,7 +29,7 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
 
     private lateinit var binding: FMapBinding
 
-    private lateinit var mMap: GoogleMap
+    //    private lateinit var mMap: GoogleMap
     private val boundsBuilder = LatLngBounds.Builder()
 
     override fun onInflateView(
@@ -51,27 +51,11 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
 
     override fun setupObserver() {
         mViewModel = obtainViewModel(this, MapViewModel::class.java)
-        mViewModel.storiesResult.observe(this, Observer {
-            when (it) {
-                is Resource.Error -> {
-                    dismissLoading()
-                    showMessage(it.message)
-                }
-                is Resource.Loading -> {
-                    showLoading()
-                }
-                is Resource.Success -> {
-                    dismissLoading()
-                    LogHelper.j(TAG, it)
 
-                    setupMarker(it.data)
-                }
-            }
-        })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+//        mMap = googleMap
 
         googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.uiSettings.isIndoorLevelPickerEnabled = true
@@ -87,14 +71,14 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dummyLocation, 5f))
 
 
-        setupStyleMap()
-        setupLocationStoryMap()
+        setupStyleMap(googleMap)
+        setupLocationStoryMap(googleMap)
     }
 
-    private fun setupMarker(data: StoriesResponse) {
+    private fun setupMarker(data: StoriesResponse, googleMap: GoogleMap) {
         data.listStory.forEach { story ->
             val latLng = LatLng(story.lat.toDouble(), story.lon.toDouble())
-            mMap.addMarker(
+            googleMap.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title(story.createdAt)
@@ -108,9 +92,9 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
         }
     }
 
-    private fun setupStyleMap() {
+    private fun setupStyleMap(googleMap: GoogleMap) {
         try {
-            val success = mMap.setMapStyle(
+            val success = googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                     requireContext(),
                     R.raw.map_style
@@ -125,7 +109,24 @@ class MapFragment : BaseFragment<MapViewModel>(), OnMapReadyCallback {
         }
     }
 
-    private fun setupLocationStoryMap() {
+    private fun setupLocationStoryMap(googleMap: GoogleMap) {
         mViewModel.getStoriesWithLocation()
+        mViewModel.storiesResult.observe(this, Observer {
+            when (it) {
+                is Resource.Error -> {
+                    dismissLoading()
+                    showMessage(it.message)
+                }
+                is Resource.Loading -> {
+                    showLoading()
+                }
+                is Resource.Success -> {
+                    dismissLoading()
+                    LogHelper.j(TAG, it)
+
+                    setupMarker(it.data, googleMap)
+                }
+            }
+        })
     }
 }
